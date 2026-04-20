@@ -11,50 +11,109 @@
     <link rel="stylesheet" href="css/ui.css">
     
     <script src="https://unpkg.com/webamp@1.5.0/built/webamp.bundle.min.js"></script>
+
+    <style>
+        /* 核心布局修复：强制锁定 Webamp 窗口 */
+        #webamp-container {
+            position: relative;
+            width: 275px; /* Winamp 标准宽度 */
+            height: 350px;
+            margin: 0 auto;
+        }
+        
+        /* 强制让 Webamp 渲染出来的 DOM 节点锚定在父容器 */
+        #webamp {
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            z-index: 50 !important;
+        }
+
+        /* 紧凑型玻璃面板 */
+        .compact-glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        /* 侧边栏呼吸灯效果 */
+        .sidebar-active-glow {
+            box-shadow: 0 0 20px rgba(0, 150, 255, 0.1);
+        }
+    </style>
 </head>
-<body>
+<body class="bg-[#f8fbff]">
 
     <div class="flex flex-col min-h-screen relative">
         <div id="header-container"></div>
         <div id="nav-container"></div>
 
-        <main class="flex-1 w-full max-w-[1040px] mx-auto px-4 pb-12 relative min-h-[600px]">
-            <div id="tab-Musics" class="tab-content animate-fade-in space-y-8 mt-6">
+        <main class="flex-1 w-full max-w-[980px] mx-auto px-4 pb-12 mt-8">
+            
+            <div class="flex flex-col lg:flex-row gap-6">
                 
-                <div class="relative w-full flex justify-center py-10">
-                    <div class="absolute inset-0 pointer-events-none opacity-20" style="background: radial-gradient(circle, #00ccff 0%, transparent 70%);"></div>
-                    <div id="webamp-container" class="relative z-50 w-[275px] h-[350px]"></div>
-                </div>
-
-                <div class="relative bg-[#f0f8ff]/85 backdrop-blur-xl border-[1.5px] border-[#fff]/70 ring-1 ring-[#3a8ef5]/30 shadow-[0_8px_25px_rgba(0,40,80,0.1),inset_0_1px_1px_rgba(255,255,255,0.9)] flex flex-col rounded-[0.6rem]">
-                    <div class="relative bg-gradient-to-b from-[#009dff] via-[#0077ff] to-[#00ccff] border-[#0055cc] flex items-center justify-between px-4 border-b-[1.5px] shadow-sm shrink-0 rounded-t-[0.6rem] h-[36px]">
-                        <div class="absolute top-[2px] left-[3px] right-[3px] h-[48%] bg-gradient-to-b from-white/70 to-white/10 pointer-events-none z-10 shadow-[0_1px_1px_rgba(255,255,255,0.3)] rounded-[0.4rem]"></div>
-                        <div class="relative z-20 flex items-center gap-2 text-white font-black text-[13px] drop-shadow-[0_1px_2px_rgba(0,0,0,0.4)] pl-1">
-                            <i data-lucide="palette" class="w-4 h-4"></i>
-                            <span class="uppercase tracking-[0.1em] pt-0.5 text-shadow-aero font-[Noto Sans SC]">皮肤终端 (Skin Terminal)</span>
-                        </div>
-                        <div class="relative z-20 text-[10px] text-white/80 font-bold px-2 py-0.5 bg-black/20 rounded border border-white/20" id="current-skin-badge">加载中...</div>
-                    </div>
-                    
-                    <div class="p-6">
-                        <div id="skin-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+                <div class="w-full lg:w-[300px] shrink-0">
+                    <div class="compact-glass rounded-2xl p-4 sidebar-active-glow flex flex-col items-center border-t-white border-l-white">
+                        <div class="w-full border-b border-blue-100 pb-2 mb-6 flex items-center justify-between px-1">
+                            <span class="text-[9px] font-black text-blue-500/60 tracking-widest uppercase">Audio Terminal v1.0</span>
+                            <div class="flex gap-1">
+                                <div class="w-1.5 h-1.5 rounded-full bg-blue-400"></div>
+                                <div class="w-1.5 h-1.5 rounded-full bg-blue-200"></div>
                             </div>
-                    </div>
-                </div>
+                        </div>
 
-                <div class="relative bg-[#f0f8ff]/85 backdrop-blur-xl border-[1.5px] border-[#fff]/70 ring-1 ring-[#3a8ef5]/30 shadow-sm flex flex-col rounded-[0.6rem]">
-                    <div class="relative bg-gradient-to-b from-[#009dff] via-[#0077ff] to-[#00ccff] border-[#0055cc] flex items-center justify-between px-4 border-b-[1.5px] shadow-sm shrink-0 rounded-t-[0.6rem] h-[36px]">
-                        <div class="absolute top-[2px] left-[3px] right-[3px] h-[48%] bg-gradient-to-b from-white/70 to-white/10 pointer-events-none z-10 shadow-[0_1px_1px_rgba(255,255,255,0.3)] rounded-[0.4rem]"></div>
-                        <div class="relative z-20 flex items-center gap-2 text-white font-black text-[13px] drop-shadow-[0_1px_2px_rgba(0,0,0,0.4)] pl-1">
-                            <img src="img/Folder203.ico" class="w-[25px] h-[25px] object-contain drop-shadow-md" onerror="this.style.display='none'">
-                            <span class="uppercase tracking-[0.1em] pt-0.5 text-shadow-aero font-[Noto Sans SC]">本地歌单 (Playlists)</span>
+                        <div id="webamp-container">
+                            <div id="loading-hint" class="absolute inset-0 flex flex-col items-center justify-center text-blue-400/50 text-[10px] font-bold italic">
+                                INITIALIZING...
+                            </div>
+                        </div>
+
+                        <div class="mt-8 w-full bg-blue-50/50 rounded-lg p-3 border border-blue-100/50">
+                            <div class="flex items-center gap-2 mb-1">
+                                <i data-lucide="activity" class="w-3 h-3 text-blue-500"></i>
+                                <span class="text-[10px] font-black text-blue-800 uppercase">Device Status</span>
+                            </div>
+                            <div class="text-[9px] text-blue-600/70 font-bold leading-relaxed">
+                                Mode: High-Fidelity Output<br>
+                                Buffer: Synchronized
+                            </div>
                         </div>
                     </div>
-                    <div id="music-playlist-container" class="p-6"></div>
                 </div>
 
+                <div class="flex-1 flex flex-col gap-5 min-w-0">
+                    
+                    <section class="compact-glass rounded-xl overflow-hidden flex flex-col">
+                        <div class="bg-gradient-to-r from-[#0088ff] to-[#00ccff] h-[32px] px-4 flex items-center justify-between border-b border-blue-600/20">
+                            <div class="flex items-center gap-2 text-white text-[11px] font-black drop-shadow-sm">
+                                <i data-lucide="layout" class="w-3.5 h-3.5"></i>
+                                <span class="tracking-widest uppercase">皮肤档案库 (Skin Library)</span>
+                            </div>
+                            <div id="active-skin-name" class="text-[9px] text-white/80 font-bold bg-white/10 px-2 py-0.5 rounded italic">Default</div>
+                        </div>
+                        
+                        <div class="p-4">
+                            <div id="skin-grid" class="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-2">
+                                </div>
+                        </div>
+                    </section>
+
+                    <section class="compact-glass rounded-xl overflow-hidden flex flex-col">
+                        <div class="bg-gradient-to-r from-[#0088ff] to-[#00ccff] h-[32px] px-4 flex items-center justify-between border-b border-blue-600/20">
+                            <div class="flex items-center gap-2 text-white text-[11px] font-black drop-shadow-sm">
+                                <i data-lucide="database" class="w-3.5 h-3.5"></i>
+                                <span class="tracking-widest uppercase">系统音轨集 (Audio Database)</span>
+                            </div>
+                        </div>
+                        <div id="music-playlist-container" class="p-2">
+                            </div>
+                    </section>
+
+                </div>
             </div>
         </main>
+        
         <div id="footer-container"></div>
     </div>
 
@@ -66,21 +125,20 @@
     <script>
         let webampInstance = null;
 
-        // 1. 完全对应你提供的文件名名单
-        const SKINS_LIST = [
+        const SKINS = [
             { id: 'aqua', name: 'Aqua X', file: 'Aqua_X.wsz' },
             { id: 'argentum', name: 'Argentum Blue', file: 'Argentum_Blue.wsz' },
             { id: 'dolphin', name: 'Dolphin Trio', file: 'Dolphin_Trio.wsz' },
-            { id: 'glass', name: 'Glass Amp 4', file: 'Glass_Amp_4.wsz' },
+            { id: 'glass', name: 'Glass Amp 4', file: 'Glass Amp 4.wsz' },
             { id: 'water', name: 'Waterdrops', file: 'Waterdrops.wsz' },
             { id: 'wmp', name: 'Windows Media', file: 'WindowsMediaPlayer1-0.wsz' },
             { id: 'yuna', name: 'Yunaofffx', file: 'Yunaofffx.wsz' }
         ];
 
-        let currentActiveId = SKINS_LIST[0].id;
+        let currentSkinId = SKINS[0].id;
 
         window.addEventListener('DOMContentLoaded', () => {
-            renderSkinGrid(); // 初始化按钮
+            renderSkinGrid();
             setTimeout(() => {
                 initWebampPlayer();
                 if (typeof renderMusicPlaylist === 'function') {
@@ -93,18 +151,17 @@
             const container = document.getElementById('webamp-container');
             if (typeof Webamp === 'undefined') return;
 
-            // 获取 MP3 的绝对路径以防 404
-            const musicPath = new URL("music/elis_ladder-thunder_disc.mp3", window.location.href).href;
+            const musicUrl = new URL("music/elis_ladder-thunder_disc.mp3", window.location.href).href;
 
             webampInstance = new Webamp({
                 initialTracks: [{
                     metaData: { artist: "Eli's Ladder", title: "Thunder Disc" },
-                    url: musicPath
+                    url: musicUrl
                 }],
-                // 默认加载第一个皮肤
                 initialSkin: {
-                    url: new URL(`skin/${SKINS_LIST[0].file}`, window.location.href).href
+                    url: new URL(`skin/${SKINS[0].file}`, window.location.href).href
                 },
+                // 窗口布局垂直堆叠，保证在 275px 宽度内显示完整
                 __initialWindowLayout: {
                     main: { position: { x: 0, y: 0 } },
                     equalizer: { position: { x: 0, y: 116 } },
@@ -113,55 +170,38 @@
             });
 
             webampInstance.renderWhenReady(container).then(() => {
-                const webampDom = document.getElementById('webamp');
-                if (webampDom) {
-                    webampDom.style.position = 'absolute';
-                    webampDom.style.left = '0';
-                    webampDom.style.top = '0';
-                }
-                updateSkinBadge(SKINS_LIST[0].name);
+                const hint = document.getElementById('loading-hint');
+                if(hint) hint.style.display = 'none';
+                document.getElementById('active-skin-name').innerText = SKINS[0].name;
             });
         }
 
-        // 渲染切换皮肤的按钮网格
         function renderSkinGrid() {
             const grid = document.getElementById('skin-grid');
-            if (!grid) return;
-
-            grid.innerHTML = SKINS_LIST.map(skin => {
-                const isActive = skin.id === currentActiveId;
+            grid.innerHTML = SKINS.map(skin => {
+                const active = skin.id === currentSkinId;
                 return `
-                    <button onclick="handleSkinSwitch('${skin.id}', '${skin.file}', '${skin.name}')" 
-                        class="flex items-center gap-3 p-3 rounded-lg border transition-all duration-300 group cursor-pointer
-                        ${isActive ? 'bg-[#e6f4ff] border-[#3a8ef5] shadow-sm' : 'bg-white/40 border-[#d0e0f0] hover:bg-white hover:border-[#88ccff]'}">
-                        <div class="w-8 h-8 rounded-md bg-gradient-to-br from-[#00ccff] to-[#0077ff] flex items-center justify-center text-white shrink-0 shadow-sm group-hover:scale-110 transition-transform">
-                            <i data-lucide="music-2" class="w-4 h-4"></i>
+                    <button onclick="changeSkin('${skin.id}', '${skin.file}', '${skin.name}')" 
+                        class="flex items-center gap-2 px-3 py-2 rounded-md border text-left transition-all duration-200 group
+                        ${active ? 'bg-blue-50 border-blue-400 shadow-inner' : 'bg-white/50 border-gray-100 hover:border-blue-300 hover:bg-white'}">
+                        <div class="w-5 h-5 rounded flex items-center justify-center shrink-0 ${active ? 'bg-blue-500 text-white' : 'bg-gray-100 text-gray-400 group-hover:text-blue-400'}">
+                            <i data-lucide="box" class="w-3 h-3"></i>
                         </div>
-                        <div class="text-left overflow-hidden">
-                            <div class="text-[11px] font-black text-[#004477] truncate">${skin.name}</div>
-                            <div class="text-[9px] font-bold text-[#88aabb] uppercase tracking-tighter">${isActive ? 'ACTIVE' : 'SELECT'}</div>
-                        </div>
+                        <span class="text-[10px] font-black tracking-tight truncate ${active ? 'text-blue-800' : 'text-gray-500'}">${skin.name}</span>
                     </button>
                 `;
             }).join('');
-            
             if(window.lucide) lucide.createIcons();
         }
 
-        function handleSkinSwitch(id, filename, name) {
-            if (!webampInstance || id === currentActiveId) return;
-
-            currentActiveId = id;
-            renderSkinGrid(); // 刷新高亮状态
+        function changeSkin(id, file, name) {
+            if (!webampInstance || id === currentSkinId) return;
+            currentSkinId = id;
+            renderSkinGrid();
             
-            const skinUrl = new URL(`skin/${filename}`, window.location.href).href;
+            const skinUrl = new URL(`skin/${file}`, window.location.href).href;
             webampInstance.setSkinFromUrl(skinUrl);
-            updateSkinBadge(name);
-        }
-
-        function updateSkinBadge(name) {
-            const badge = document.getElementById('current-skin-badge');
-            if(badge) badge.innerText = name;
+            document.getElementById('active-skin-name').innerText = name;
         }
     </script>
 </body>
