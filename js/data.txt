@@ -1,0 +1,299 @@
+window.SOCIAL_LINKS = [
+    { id: 'douyin', platform: '抖音', url: 'https://www.douyin.com/user/MS4wLjABAAAAS-l_hbzTjM2j3XqEnZhbK8QXywpMavrnQ-rPLf5_x_o', icon: 'https://img.icons8.com/fluency/96/tiktok.png' },
+    { id: 'xhs', platform: '小红书', url: 'https://www.xiaohongshu.com/user/profile/629373830000000021026df8', icon: 'https://s1.aigei.com/src/img/png/bd/bd1181139ecf4d32b7b1d2ff8139da44.png?e=2051020800&token=P7S2Xpzfz11vAkASLTkfHN7Fw-oOZBecqeJaxypL:Hy7IWryzx-_ka3m5iBHXLhuH6mA=' },
+    { id: 'qq', platform: 'QQ群', url: 'https://qm.qq.com/q/tKnyByyci4', icon: 'https://img.icons8.com/color/96/qq.png' },
+    { id: 'tieba', platform: '贴吧', url: 'https://tieba.baidu.com/f?kw=weirdcore', icon: 'https://img.icons8.com/color/96/baidu.png' },
+    { id: 'bilibili', platform: 'B站', url: 'https://space.bilibili.com/3546825371945351', icon: 'https://img.icons8.com/color/96/bilibili.png' },
+    { id: 'pinterest', platform: 'Pinterest', url: 'https://www.pinterest.com/weirdcore_aethestics/', icon: 'https://img.icons8.com/color/96/pinterest--v1.png' },
+    { id: 'instagram', platform: 'Instagram', url: 'https://www.instagram.com/weirdcore_comm/', icon: 'https://img.icons8.com/color/96/instagram-new--v1.png' },
+];
+
+window.SLIDES_DATA = [
+    { url: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1000", title: "连接数字灵魂，重构互联网美学", subtitle: "Connect Digital Souls, Reconstruct Internet Aesthetics." },
+    { url: "http://photogzmaz.photo.store.qq.com/psc?/V51U6iCN3RmpFQ0aEsL741f8MG1kIBbE/TmEUgtj9EK6.7V8ajmQrEDkCCN8TxtWxtnjF1u0u4j6agllzT9y3H2jHNFni*F7.exROaWgI6VywNKc4p.H42bhnPqC9fGnnlkdEB8vLwXo!/b&bo=9AVTA*QFUwMDByI!&rf=viewer_4", title: "加入我们", subtitle: "不止是获得海量资源，更是加入一个能让你灵感落地、持续成长的创作集体。" },
+    { url: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=1000", title: "记录已逝的互联网黄金时代", subtitle: "Our Mission: Archive the Golden Age of Internet." }
+];
+
+window.SITE_CONFIG = {
+    siteTitle: "核类艺术协会™",
+    siteSubtitle: "CORE ART ASSOCIATION",
+    logoUrl: "https://s3.mnat.cn/2026/02/24/699dbf55183e4.jpg",
+    backgroundUrl: "https://wallpapercave.com/wp/wp13908387.png",
+    footerText: "© 2024-2026 Core Art Association. 本站由社区成员自发维护，保留所有权利。",
+    contactEmail: "contact@coreart.cn"
+};
+
+window.LAYOUT_CONFIG = {
+    home: {
+        showMarquee: true,
+        showSlider: true,
+        showNews: true,
+        showAbout: true,
+        showStats: true,
+        showJoin: true,
+        showFollow: true
+    }
+};
+
+window.JOIN_CONFIG = {
+    title: "加入社群 (Join)",
+    icon: "https://s3.mnat.cn/2026/02/24/699db829ae63a.ico",
+    welcomeText: "欢迎来到 CORE Art Association。点击下方按钮加入官方交流群。",
+    avatarUrl: "https://s3.mnat.cn/2026/02/24/699dbf55183e4.jpg",
+    qqGroupUrl: "https://qm.qq.com/q/tKnyByyci4",
+    helpUrl: "https://coreart.cn/help"
+};
+
+window.MARQUEE_TEXT = "🎉 CORE拜年祭 2025：年度重磅企划，集结社区顶尖创作者的视觉盛宴，现已开启作品征集！ ✨ 每周创作活动：第 42 期主题「失落的信号塔」正在进行中，欢迎投稿。 📢 社区公告：新版核类艺术协会官网 (Beta 1.0) 正式上线，欢迎反馈 Bug。 📅 日程提醒：本周六晚 20:00 有「Weirdcore 素材挖掘」线上交流会，请关注群公告。";
+
+window.NEWS_ITEMS = [
+    {
+        title: "美学创作活动：你诞生那天宇宙的样子",
+        desc: "年度视觉盛宴，汇集社区顶级创作力量，现已发布",
+        url: "https://www.bilibili.com/video/BV1tPfFBoEz8/?spm_id_from=333.1387.homepage.video_card.click&vd_source=0c6c0f80bdbcbd1a276b87138ae622e0",
+        img: "https://s3.mnat.cn/2026/02/24/699dbe649a8ef.jpg",
+        type: "video"
+    },
+    {
+        title: "2026年CORE拜年祭正片：寻梦之旅",
+        desc: "年度视觉盛宴，汇集社区顶级创作力量，现已发布",
+        url: "https://www.bilibili.com/video/BV1GLZ4BgEEw/?spm_id_from=333.1387.homepage.video_card.click&vd_source=0c6c0f80bdbcbd1a276b87138ae622e0",
+        img: "https://s3.mnat.cn/2026/02/24/699dbe6548e74.jpg",
+        type: "video"
+    },
+    {
+        title: "从入门到入土：如何玩转Xpiritualism",
+        desc: "优秀艺术家作品分析与教程分享",
+        url: "https://www.bilibili.com/video/BV1kuH7zdE97/",
+        img: "https://s3.mnat.cn/2026/02/24/699dbe6513a79.jpg",
+        type: "video"
+    },
+    {
+        title: "社区创作活动",
+        desc: "发挥你的想象力和表达欲，不限题材，自由发挥，根据材料进行创作。记得把完成的作品上传至自制作品相册中，我们会在截止日期将精美的作品放进精选集，优秀的作品放进官号图集，期待大家的神作！",
+        url: "activities.html",
+        img: "https://s3.mnat.cn/2026/02/24/699dbe64ba4c2.jpg",
+        type: "link"
+    },
+    {
+        title: "邪教？还是艺术？谈 Xpiritualism",
+        desc: "深入解析奇异的精神美学。",
+        url: "https://www.bilibili.com/video/BV1kuH7zdE97/",
+        img: "https://s3.mnat.cn/2026/02/24/699dc350d0ac9.jpg",
+        type: "video"
+    }
+];
+
+window.ABOUT_DATA = {
+    sections: [
+        {
+            title: "起源与发展",
+            icon: "history",
+            iconColor: "text-[#0066aa]",
+            content: "我们因热爱核类美学而相聚，最初源自贴吧Weirdcore吧，核心管理至今仍是当初的吧务团队。现已从小范围社群发展为跨平台社区，成为更广阔的核类美学聚集地。"
+        },
+        {
+            title: "初心与成长",
+            icon: "sparkles",
+            iconColor: "text-blue-500",
+            content: "我们始终秉持交流、钻研与协作的初心，形成了有归属感的集体，并产出众多专业科普与原创作品。随着同好增加，社群稳步成长。为帮助新人，我们提供全面支持：技术指导、系统教学、创作资源与海量图库，并定期举办活动，促进共同进步。"
+        },
+        {
+            title: "愿景与邀请",
+            icon: "heart-handshake",
+            iconColor: "text-pink-500",
+            content: "若你也热爱核类美学，欢迎加入。在这里可结识同好、分享灵感、展示创作，共同为社群注入活力，让核类美学的世界更加精彩。"
+        }
+    ],
+    timeline: [
+        { date: "2025.01", title: "第一届 CORE 拜年祭启动" },
+        { date: "2025.09", title: "核类艺术协会™ 官网上线" },
+        { date: "2025.12", title: "2026 拜年祭征稿结束" }
+    ]
+};
+
+// 包含所有数据以确保全站搜索可用
+window.RESOURCES = [
+    {
+        title: "多媒体与视觉创作工具",
+        icon: "https://s3.mnat.cn/2026/02/24/699db8842fbb9.ico",
+        links: [
+            { title: "CloudCB", url: "https://www.cloudcb.me/", description: "创意设计工具：像素处理、视频分析和视听可视化功能。" },
+            { title: "Flamingo Text GIF 生成", url: "https://www.flamingtext.com/Cool-Text-Generator/", description: "[2026/1/14] 经典的动态发光文字与 3D 字体生成工具。" },
+            { title: "复古 WordArt 生成", url: "https://www.makewordart.com/", description: "[2026/1/14] 完美复刻 Office 97 时代的 WordArt 艺术字效果。" },
+            { title: "Windows 98 UI 生成", url: "https://mazkosoft.github.io/Windows-UI-Builder", description: "[2026/1/14] 深度定制并生成复古 Windows 界面元素。" },
+            { title: "电子包浆", url: "https://magiconch.com/patina/", description: "为图片添加复古的低画质降噪失真效果。" },
+            { title: "蒸汽波滤镜", url: "https://magiconch.com/vaporwave/", description: "一键生成蒸汽波 (Vaporwave) 风格的色彩调节与故障效果。" },
+            { title: "黑白图上色", url: "https://qingtu.cn/color", description: "利用 AI 技术自动修复并为黑白老照片上色。" },
+            { title: "像素混乱 (Glitch)", url: "https://xfqtphx.netlify.app/", description: "生成随机的像素拉伸与数据损坏视觉效果。" },
+            { title: "跳舞字母制作", url: "https://dance.the404.nl/", description: "生成早期互联网风格的跳舞文字 GIF。" },
+            { title: "电子做旧", url: "https://www.digicamfx.com/editor", description: "模拟旧数码相机 (Digicam) 的成像质感。" },
+            { title: "图片做旧", url: "https://eyy.co/tools/datamosher/", description: "通过 Datamoshing 技术创造视频/图片的独特故障感。" },
+            { title: "Windows 窗口制作", url: "https://jw-nostalgia.netlify.app", description: "在线生成自定义内容的 Windows 95/98 弹窗截图。" },
+            { title: "AI 去水印", url: "https://dewatermark.ai/zh-CN/", description: "智能移除图片中的水印和多余物体。" },
+            { title: "Magic Eraser", url: "https://magiceraser.org/zh/remove-watermark-from-image/", description: "快速擦除图片中不需要的部分。" },
+            { title: "特殊字体制作", url: "https://www.fontgenerator.art/joiner.html", description: "生成 Zalgo 文本或特殊 Unicode 字符组合。" },
+            { title: "发光动图文字", url: "http://75.84c.cn/g/index.html", description: "制作千禧年风格的闪烁发光文字动图。" },
+            { title: "非主流网名生成", url: "https://ftzh.cn/wmsj.html#default", description: "生成带有特殊符号的发光火星文网名。" },
+            { title: "在线字体生成 1", url: "http://www.qt86.com", description: "提供多种艺术字体在线转换与生成。" },
+            { title: "在线字体生成 2", url: "http://www.akuziti.com", description: "海量个性化字体在线预览与生成。" },
+            { title: "在线字体生成 3", url: "http://www.jiqie.com/", description: "支持书法、手写等多种风格字体生成。" },
+            { title: "免费商用中文字体", url: "https://zfont.cn/", description: "检索和下载免费可商用的中文字体文件。" },
+            { title: "B 站视频解析", url: "https://xbeibeix.com/api/bilibili/", description: "获取 Bilibili 视频封面、音频及视频文件。" },
+            { title: "TikTok 无水印下载", url: "https://snaptik.com/zh/tiktok", description: "下载无水印的 TikTok 短视频。" },
+            { title: "小红书无水印解析", url: "https://www.xhs-download.online/", description: "提取小红书笔记中的无水印图片和视频。" },
+            { title: "提取图片素材", url: "https://extract.pics/", description: "批量提取并下载指定网页上的所有图片资源。" }
+        ]
+    },
+    {
+        title: "信息检索与数字档案库",
+        icon: "https://s3.mnat.cn/2026/02/24/699db882e646e.ico",
+        links: [
+            { title: "GifCities 档案库", url: "https://gifcities.org/", description: "[2026/1/14] 互联网档案馆推出的 GeoCities 早期 GIF 素材搜索引擎。" },
+            { title: "描述找图", url: "https://vv.xy0v0.top/", description: "通过自然语言描述搜索匹配的动漫或艺术图片。" },
+            { title: "反向查图", url: "https://www.reverseimagesearch.com/dev/zh", description: "多引擎聚合反向搜索图片来源。" },
+            { title: "视觉搜索引擎", url: "https://same.energy/", description: "基于视觉相似度的沉浸式图片搜索引擎。" },
+            { title: "搜索电影关键词", url: "https://playphrase.me", description: "通过台词搜索包含该台词的电影片段。" },
+            { title: "Trace.moe (搜番)", url: "https://trace.moe/", description: "通过截屏搜索对应的动画名称和集数。" },
+            { title: "Saucenao", url: "https://saucenao.com/", description: "强大的插画与同人图来源反向搜索引擎。" },
+            { title: "Ascii2d", url: "https://ascii2d.net/", description: "针对二次元图片的精准反向检索工具。" },
+            { title: "Yandex 识图", url: "https://yandex.ru/images/search", description: "俄罗斯搜索引擎，对小众图片的识别能力极强。" },
+            { title: "Google 识图", url: "https://www-d-google-d-com-s-gmn.v.tuangouai.com/imghp", description: "全球最大的图片反向搜索引擎。" },
+            { title: "Archive.org", url: "https://archive.org/", description: "互联网档案库，回溯网页历史与绝版资源。" },
+            { title: "老游戏画报快照档案", url: "https://archive.org/search?query=subject%3A%22Game+Magazine%22&and%5B%5D=language%3A%22Chinese%22", description: "收藏了大量绝版的老游戏画报扫描件。" },
+            { title: "综合搜书", url: "https://xmsoushu.com/", description: "聚合多个电子书资源的图书搜索引擎。" },
+            { title: "Jiumo Search", url: "https://www.jiumodiary.com/", description: "专注于电子文档和图书的搜索引擎。" },
+            { title: "Z-Library", url: "https://zh.z-library.se/", description: "全球最大的数字图书馆之一（需特定访问方式）。" },
+            { title: "安娜的档案", url: "https://tw.annas-archive.org/", description: "这一代的影子图书馆搜索引擎。" },
+            { title: "Library Genesis", url: "https://libgen.li/", description: "学术论文与书籍的免费下载库。" },
+            { title: "网页设计博物馆", url: "https://www.webdesignmuseum.org", description: "展示从 90 年代至今的网页设计演变历史。" }
+        ]
+    },
+    {
+        title: "核心美学与资源素材库",
+        icon: "https://s3.mnat.cn/2026/02/24/699db884db00d.ico",
+        links: [
+            { title: "Galdrux", url: "http://galdrux.com", description: "[2026/1/17] 一个充满谜题与超现实主义美学的网络艺术项目 (ARG)。" },
+            { title: "MyInstants 音效库", url: "https://www.myinstants.com/en/index/us/", description: "[2026/1/14] 海量梗 (Meme) 与网络热门音效按钮合集。" },
+            { title: "Weirdcore Pinterest", url: "https://www.pinterest.com/weirdcore_aesthetics/", description: "Weirdcore 美学风格的 Pinterest 画板合集。" },
+            { title: "CORE 艺术协会", url: "https://coreart.cn", description: "本协会官方网站，核类美学大本营。" },
+            { title: "数字美学资源全集", url: "https://coreart.cn/help.html", description: "CORE 整理的一站式美学资源导航。" },
+            { title: "Frutiger Aero 资料库", url: "https://frutiger-aero.com/", description: "专注于 Frutiger Aero 美学的百科全书。" },
+            { title: "Frutiger Aero 档案", url: "https://frutigeraeroarchive.org/", description: "收藏大量 FA 风格图片与设计案例的档案馆。" },
+            { title: "Wojak 素材百科", url: "https://www.memeatlas.com/wojak-memes.html", description: "Wojak (Feels Guy) 表情包的分类与百科。" },
+            { title: "Wojak 档案站", url: "http://wojak-studio.com", description: "Wojak 表情生成器与素材库。" },
+            { title: "Pictogram2 跑跑卡丁小人", url: "https://pictogram2.com/", description: "非常常用的身形指示图表素材库。" },
+            { title: "外国小人照片馆", url: "https://www.muratogretmen.com/?Syf=4&pt=Foto+Galeri", description: "早期教育软件中常用的 3D 小人素材。" },
+            { title: "科技感设计资源", url: "https://www.infinityplus.co.uk/", description: "复古科技感与未来主义设计素材。" },
+            { title: "暗黑塔罗牌片", url: "http://www.ankokukoubou.com/etc/game/tarot/kiru1.htm", description: "风格独特的暗黑系塔罗牌素材。" },
+            { title: "千禧贴纸素材", url: "https://www.glitter-graphics.com/", description: "2000 年代初期流行的闪闪发光 GIF 贴纸。" },
+            { title: "Gen X Soft Club", url: "https://www.are.na/evan-collins-1522646491/gen-x-soft-club", description: "探索 90 年代末期企业柔和美学的 Are.na 频道。" },
+            { title: "Texturelabs 高清纹理", url: "https://texturelabs.org", description: "高质量的免费材质纹理下载站。" }
+        ]
+    },
+    {
+        title: "趣味模拟与怀旧小站",
+        icon: "https://s3.mnat.cn/2026/02/24/699db82d0aef9.ico",
+        links: [
+            { title: "Cameron's World", url: "https://www.cameronsworld.net/", description: "[2026/1/17] 汇集了成千上万个 GeoCities 存档页面的致敬之作，重现早期网络美学。" },
+            { title: "Windows 98 在线版", url: "https://98.js.org/", description: "在浏览器中完美运行的 Windows 98 模拟器。" },
+            { title: "Windows 94 模拟", url: "https://windows94.netlify.app/desktop.html", description: "基于 Web 的 Windows 9x 风格桌面体验。" },
+            { title: "网页电脑博物馆", url: "https://www.compumuseum.com/", description: "展示各类古董电脑硬件与系统的在线博物馆。" },
+            { title: "复古 QQ 秀", url: "https://www.qqshow2000.com/", description: "重温 2000 年代初期的 QQ 秀搭配体验。" },
+            { title: "音画论坛", url: "https://bbs.voc.com.cn/forum-163-1.html", description: "保留了传统音画贴风格的老式论坛版块。" },
+            { title: "复古电台", url: "https://n10.as/", description: "播放 Vaporwave 与复古能量的在线电台。" },
+            { title: "AH 实验音乐", url: "http://dashichang.work/", description: "生成怪诞与前卫音乐的实验性网站。" },
+            { title: "杀马特特网", url: "https://shamate.org/", description: "记录杀马特文化历史的线上档案馆。" }
+        ]
+    }
+];
+
+window.ARTISTS = [
+    {
+        id: 'w1', name: 'Sanctuary_0', category: 'Weirdcore',
+        description: '低分辨率文本视觉与令人不安的熟悉感大师。探索感觉“这一切”的安全空间。',
+        tags: ['#textcore', '#eyes', '#void'],
+        coverImage: 'https://picsum.photos/400/400?random=101',
+        gallery: ['https://picsum.photos/600/400?random=102', 'https://picsum.photos/600/400?random=103', 'https://picsum.photos/600/400?random=104']
+    },
+    {
+        id: 'w2', name: 'Glitch_Boy_2004', category: 'Weirdcore',
+        description: '专注于厌世影像和混合着不安的早期互联网怀旧。',
+        tags: ['#glitch', '#nostalgia', '#compression'],
+        coverImage: 'https://picsum.photos/400/400?random=105',
+        gallery: ['https://picsum.photos/600/400?random=106', 'https://picsum.photos/600/400?random=107']
+    },
+    {
+        id: 'fa1', name: 'Aero_Dreams', category: 'Frutiger Aero',
+        description: '水样的纹理，充满了水泡、极光和对更美好明天的乐观向往。',
+        tags: ['#glossy', '#nature_tech', '#optimism'],
+        coverImage: 'https://picsum.photos/400/400?random=301',
+        gallery: ['https://picsum.photos/600/400?random=302', 'https://picsum.photos/600/400?random=303']
+    },
+    {
+        id: 'l1', name: 'TheBackrooms_Official', category: 'Liminal Space',
+        description: '记录我们集体潜意识中空荡荡的黄色走廊和嗡鸣声。',
+        tags: ['#backrooms', '#yellow', '#empty'],
+        coverImage: 'https://picsum.photos/400/400?random=201',
+        gallery: ['https://picsum.photos/600/400?random=202', 'https://picsum.photos/600/400?random=203']
+    },
+    {
+        id: 'xp1', name: 'Divine_Net_Presence', category: 'Xpiritualism',
+        description: '当古老的宗教符号遇上拨号上网时代的低保真画质。在数据流中寻找神性。',
+        tags: ['#web_spirit', '#god_ray', '#divine'],
+        coverImage: 'https://picsum.photos/400/400?random=401',
+    }
+];
+
+window.MUSIC_PLAYLIST = [
+    { title: "Resonance", artist: "Home", url: "https://music.163.com/song/media/outer/url?id=27591651.mp3", cover: "https://p1.music.126.net/6y-UleORITEDbvrOLV0Q8A==/5639395138885805.jpg" },
+    { title: "SimpsonWave1995", artist: "FrankJavCee", url: "https://music.163.com/song/media/outer/url?id=409650841.mp3", cover: "https://p2.music.126.net/4KDBa-W_3-0m1H8L_80zSg==/109951163250239066.jpg" }
+];
+
+window.VIDEOS_DATA = [
+    { title: "2026年CORE拜年祭正片", url: "https://www.bilibili.com/video/BV1GLZ4BgEEw", cover: "https://i0.hdslb.com/bfs/archive/cbed971bab3473194a6114bc4005b6875f6e57c4.jpg@672w_378h_1c.webp", date: "2025-01-01" },
+    { title: "美学创作活动：你诞生那天宇宙的样子", url: "https://www.bilibili.com/video/BV1tPfFBoEz8", cover: "https://i0.hdslb.com/bfs/archive/b4c8c6f17712ebdc31ecc40459176e6bb37978f4.jpg@672w_378h_1c.webp", date: "2024-12-20" }
+];
+
+window.ARTICLES_DATA = [
+    { title: "从入门到入土：如何玩转Xpiritualism", summary: "深入解析奇异的精神美学，探讨其背后的文化符号与视觉语言。", url: "#", cover: "https://i0.hdslb.com/bfs/archive/2bb7330d8e95f63883848d9feaa09a7604a7c701.jpg@672w_378h_1c.webp", date: "2024-11-15" }
+];
+
+window.NAV_ITEMS = [
+    { id: 'index', text: '首页', href: 'index.html' },
+    { id: 'resources', text: '资源', href: 'resources.html' },
+    { id: 'gallery', text: '图集', href: 'gallery.html' },
+    { id: 'articles', text: '文章', href: 'articles.html' },
+    { id: 'videos', text: '视频', href: 'videos.html' },
+    { id: 'musics', text: '音乐', href: 'musics.html' },
+    { id: 'activities', text: '活动', href: 'activities.html' },
+    { id: 'aesthetics', text: '美学', href: 'aesthetics.html' },
+    { id: 'guestbook', text: '留言', href: 'guestbook.html' }
+];
+
+// 检查本地存储覆盖 (Admin Overrides)
+if(typeof localStorage !== 'undefined') {
+    if(localStorage.getItem('core_NEWS_ITEMS')) window.NEWS_ITEMS = JSON.parse(localStorage.getItem('core_NEWS_ITEMS'));
+    if(localStorage.getItem('core_MARQUEE_TEXT')) {
+        let mq = localStorage.getItem('core_MARQUEE_TEXT');
+        try { mq = JSON.parse(mq); } catch(e) {}
+        window.MARQUEE_TEXT = mq;
+    }
+    if(localStorage.getItem('core_ABOUT_DATA')) window.ABOUT_DATA = JSON.parse(localStorage.getItem('core_ABOUT_DATA'));
+    if(localStorage.getItem('core_RESOURCES')) window.RESOURCES = JSON.parse(localStorage.getItem('core_RESOURCES'));
+    if(localStorage.getItem('core_ALBUMS')) window.ALBUMS = JSON.parse(localStorage.getItem('core_ALBUMS'));
+    
+    // New Configs
+    if(localStorage.getItem('core_SOCIAL_LINKS')) window.SOCIAL_LINKS = JSON.parse(localStorage.getItem('core_SOCIAL_LINKS'));
+    if(localStorage.getItem('core_SLIDES_DATA')) window.SLIDES_DATA = JSON.parse(localStorage.getItem('core_SLIDES_DATA'));
+    if(localStorage.getItem('core_SITE_CONFIG')) window.SITE_CONFIG = JSON.parse(localStorage.getItem('core_SITE_CONFIG'));
+    if(localStorage.getItem('core_LAYOUT_CONFIG')) window.LAYOUT_CONFIG = JSON.parse(localStorage.getItem('core_LAYOUT_CONFIG'));
+    if(localStorage.getItem('core_JOIN_CONFIG')) window.JOIN_CONFIG = JSON.parse(localStorage.getItem('core_JOIN_CONFIG'));
+    
+    // Additional Data
+    if(localStorage.getItem('core_MUSIC_PLAYLIST')) window.MUSIC_PLAYLIST = JSON.parse(localStorage.getItem('core_MUSIC_PLAYLIST'));
+    if(localStorage.getItem('core_VIDEOS_DATA')) window.VIDEOS_DATA = JSON.parse(localStorage.getItem('core_VIDEOS_DATA'));
+    if(localStorage.getItem('core_ARTICLES_DATA')) window.ARTICLES_DATA = JSON.parse(localStorage.getItem('core_ARTICLES_DATA'));
+    if(localStorage.getItem('core_NAV_ITEMS')) window.NAV_ITEMS = JSON.parse(localStorage.getItem('core_NAV_ITEMS'));
+    if(localStorage.getItem('core_ARTISTS')) window.ARTISTS = JSON.parse(localStorage.getItem('core_ARTISTS'));
+}

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>核类艺术协会™ | 管理后台</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/ui.css">
+    <style>
+        /* Admin Specific Styles */
+        .admin-sidebar-link.active {
+            background: linear-gradient(to bottom, #e6f4ff, #d0e8ff);
+            border-color: #aaddff;
+            color: #004477;
+            box-shadow: inset 0 1px 2px rgba(255,255,255,0.8), 0 1px 2px rgba(0,0,0,0.05);
+        }
+        .admin-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        /* Data Grid */
+        .data-grid-header {
+            background: linear-gradient(to bottom, #f9fcff, #e6f0fa);
+            border-bottom: 1px solid #cceeff;
+            color: #446688;
+            font-weight: 800;
+            font-size: 11px;
+            text-transform: uppercase;
+        }
+        .data-grid-row:nth-child(even) { background-color: rgba(240, 248, 255, 0.3); }
+        .data-grid-row:hover { background-color: #f0f9ff; }
+    </style>
+</head>
+<body class="overflow-hidden">
+
+    <!-- Login Overlay -->
+    <div id="login-screen" class="fixed inset-0 z-[9999] bg-[url('https://wallpapercave.com/wp/wp13908387.png')] bg-cover bg-center flex items-center justify-center">
+        <div class="absolute inset-0 bg-black/20 backdrop-blur-sm"></div>
+        <div class="relative bg-white/80 backdrop-blur-xl border border-white/60 p-8 rounded-2xl shadow-2xl w-full max-w-md flex flex-col items-center gap-6 animate-fade-in">
+            <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-md border border-[#aaddff]">
+                <img src="https://raw.githubusercontent.com/Visnalize/resources/main/icons/win7/Filetypes%2C%20Devices%2C%20Miscellaneous/imageres_101.ico" class="w-12 h-12 object-contain">
+            </div>
+            <div class="text-center">
+                <h2 class="text-2xl font-black text-[#004477]">CORE ADMIN</h2>
+                <p class="text-sm text-[#557799] font-bold">网站管理控制台</p>
+            </div>
+            <form onsubmit="handleLogin(event)" class="w-full flex flex-col gap-3">
+                <div class="relative">
+                    <i data-lucide="lock" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#88aabb]"></i>
+                    <input type="password" id="admin-password" placeholder="请输入管理员密码 (admin)" class="w-full pl-10 pr-4 py-2.5 rounded-lg border border-[#aaddff] bg-white/80 outline-none focus:ring-2 focus:ring-[#0099ff]/30 text-[#004477] font-bold shadow-inner">
+                </div>
+                <button type="submit" class="w-full py-2.5 bg-gradient-to-b from-[#009dff] to-[#0077ff] text-white font-black rounded-lg shadow-md hover:brightness-110 active:scale-[0.98] transition-all border border-[#0055cc]">
+                    登录 / LOGIN
+                </button>
+            </form>
+            <p class="text-[10px] text-[#88aabb]">Authorized Personnel Only</p>
+        </div>
+    </div>
+
+    <!-- Main Admin Interface -->
+    <div id="admin-interface" class="hidden flex h-screen w-full bg-[#eef8ff]">
+        
+        <!-- Sidebar -->
+        <aside class="w-64 bg-gradient-to-b from-[#f0f9ff] to-[#e0efff] border-r border-[#cceeff] flex flex-col shrink-0 z-20 shadow-lg">
+            <!-- Sidebar Header -->
+            <div class="h-14 flex items-center gap-3 px-4 border-b border-[#cceeff] bg-white/50">
+                <img src="https://raw.githubusercontent.com/Visnalize/resources/main/icons/win7/Filetypes%2C%20Devices%2C%20Miscellaneous/imageres_101.ico" class="w-8 h-8">
+                <div>
+                    <h1 class="text-sm font-black text-[#004477]">CORE ADMIN</h1>
+                    <div class="flex items-center gap-1.5">
+                        <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                        <span class="text-[10px] font-bold text-[#557799]">Online</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="flex-1 overflow-y-auto p-3 space-y-1" id="admin-nav">
+                <!-- Nav items injected by JS -->
+            </nav>
+
+            <!-- Sidebar Footer -->
+            <div class="p-3 border-t border-[#cceeff] bg-white/30">
+                <button onclick="handleLogout()" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-[#cc4444] hover:bg-red-50 hover:border-red-100 border border-transparent transition-all text-xs font-bold">
+                    <i data-lucide="log-out" class="w-4 h-4"></i> 退出登录
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 flex flex-col min-w-0 bg-[url('https://www.transparenttextures.com/patterns/grid-me.png')]">
+            
+            <!-- Top Bar -->
+            <header class="h-14 bg-white/80 backdrop-blur-md border-b border-[#cceeff] flex items-center justify-between px-6 shadow-sm z-10">
+                <h2 id="page-title" class="text-lg font-black text-[#004477] flex items-center gap-2">
+                    <i data-lucide="layout-dashboard" class="w-5 h-5 text-[#0088cc]"></i> 仪表盘
+                </h2>
+                <div class="flex items-center gap-3">
+                    <button onclick="saveAllData()" class="flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-b from-[#00cc66] to-[#00aa55] text-white text-xs font-bold rounded shadow-sm border border-[#008844] hover:brightness-110 active:translate-y-[1px]">
+                        <i data-lucide="save" class="w-3.5 h-3.5"></i> 保存更改
+                    </button>
+                    <button onclick="exportDataJS()" class="flex items-center gap-1.5 px-3 py-1.5 bg-white text-[#005588] text-xs font-bold rounded shadow-sm border border-[#aaddff] hover:bg-[#f0f9ff]">
+                        <i data-lucide="download" class="w-3.5 h-3.5"></i> 导出 data.js
+                    </button>
+                    <a href="index.html" target="_blank" class="flex items-center gap-1.5 px-3 py-1.5 bg-white text-[#557799] text-xs font-bold rounded shadow-sm border border-[#e0e0e0] hover:bg-gray-50">
+                        <i data-lucide="external-link" class="w-3.5 h-3.5"></i> 预览网站
+                    </a>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <div class="flex-1 overflow-y-auto p-6" id="admin-content">
+                <!-- Dynamic Content -->
+            </div>
+
+        </main>
+
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-6 right-6 translate-y-20 opacity-0 transition-all duration-300 bg-[#333] text-white px-4 py-3 rounded-lg shadow-xl flex items-center gap-3 z-[10000]">
+        <i data-lucide="check-circle" class="w-5 h-5 text-green-400"></i>
+        <span id="toast-msg" class="text-sm font-bold">Operation Successful</span>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>核类艺术协会™ | 音乐</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/ui.css">
+    
+    <script src="https://unpkg.com/webamp@1.5.0/built/webamp.bundle.min.js"></script>
+</head>
+<body>
+
+    <div class="flex flex-col min-h-screen relative">
+        <div id="header-container"></div>
+        <div id="nav-container"></div>
+
+        <main class="flex-1 w-full max-w-[1040px] mx-auto px-4 pb-12 relative min-h-[600px]">
+            <div id="tab-Musics" class="tab-content animate-fade-in space-y-6">
+                
+                <div class="flex justify-center gap-4 mt-8">
+                    <button onclick="switchSkin('skin/Glass_Amp_4.wsz')" class="px-5 py-2 rounded-full bg-white/20 hover:bg-white/30 border border-white/30 text-white text-[11px] font-black transition-all backdrop-blur-md flex items-center gap-2 cursor-pointer shadow-lg active:scale-95">
+                        <i data-lucide="palette" class="w-3.5 h-3.5 text-blue-300"></i> GLASS AMP 
+                    </button>
+                    <button onclick="switchSkin('skin/Winamp_X2.wsz')" class="px-5 py-2 rounded-full bg-white/20 hover:bg-white/30 border border-white/30 text-white text-[11px] font-black transition-all backdrop-blur-md flex items-center gap-2 cursor-pointer shadow-lg active:scale-95">
+                        <i data-lucide="palette" class="w-3.5 h-3.5 text-pink-300"></i> WINAMP X2
+                    </button>
+                </div>
+
+                <div id="webamp-container" class="relative mx-auto w-[275px] h-[350px] z-50 mb-10 mt-6"></div>
+
+                <div class="relative bg-[#f0f8ff]/85 backdrop-blur-xl border-[1.5px] border-[#fff]/70 ring-1 ring-[#3a8ef5]/30 shadow-sm flex flex-col rounded-[0.6rem]">
+                    <div class="relative bg-gradient-to-b from-[#009dff] via-[#0077ff] to-[#00ccff] border-[#0055cc] flex items-center justify-between px-4 border-b-[1.5px] shadow-sm shrink-0 rounded-t-[0.6rem] h-[36px]">
+                        <div class="absolute top-[2px] left-[3px] right-[3px] h-[48%] bg-gradient-to-b from-white/70 to-white/10 pointer-events-none z-10 shadow-[0_1px_1px_rgba(255,255,255,0.3)] rounded-[0.4rem]"></div>
+                        <div class="relative z-20 flex items-center gap-2 text-white font-black text-[13px] drop-shadow-[0_1px_2px_rgba(0,0,0,0.4)] pl-1">
+                            <img src="img/Folder203.ico" class="w-[25px] h-[25px] object-contain drop-shadow-md" onerror="this.style.display='none'">
+                            <span class="uppercase tracking-[0.1em] pt-0.5 text-shadow-aero font-[Noto Sans SC]">本地歌单 (Local Playlist)</span>
+                        </div>
+                    </div>
+                    <div id="music-playlist-container" class="p-6"></div>
+                </div>
+
+            </div>
+        </main>
+        <div id="footer-container"></div>
+    </div>
+
+    <script>window.ACTIVE_PAGE = 'musics';</script>
+    <script src="js/data.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/main.js"></script>
+    
+    <script>
+        let webampInstance = null;
+
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                initWebampPlayer();
+                if (typeof renderMusicPlaylist === 'function') {
+                    renderMusicPlaylist('music-playlist-container');
+                }
+            }, 200);
+        });
+
+        function initWebampPlayer() {
+            const container = document.getElementById('webamp-container');
+            if (typeof Webamp === 'undefined') return;
+
+            // 纯净的官方参数配置
+            webampInstance = new Webamp({
+                initialTracks: [
+                    {
+                        metaData: { artist: "Eli's Ladder", title: "Thunder Disc" },
+                        url: "music/elis_ladder-thunder_disc.mp3"
+                    }
+                ],
+                initialSkin: {
+                    url: "skin/Glass_Amp_4.wsz"
+                },
+                // 【修复Bug 1】：彻底移除了坑人的 size 属性
+                __initialWindowLayout: {
+                    main: { position: { x: 0, y: 0 } },
+                    equalizer: { position: { x: 0, y: 116 } },
+                    playlist: { position: { x: 0, y: 232 } } 
+                }
+            });
+
+            webampInstance.renderWhenReady(container).then(() => {
+                const webampDom = document.getElementById('webamp');
+                if (webampDom) {
+                    webampDom.style.position = 'absolute';
+                    webampDom.style.left = '0';
+                    webampDom.style.top = '0';
+                }
+            }).catch(err => {
+                console.error("Webamp Render Error:", err);
+            });
+        }
+
+        function switchSkin(skinPath) {
+            if (webampInstance) {
+                // 【修复Bug 2】：移除了不支持的 .catch()，直接调用官方函数
+                webampInstance.setSkinFromUrl(skinPath);
+            }
+        }
+    </script>
+</body>
+</html>

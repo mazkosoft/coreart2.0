@@ -1,0 +1,35 @@
+/* UI Components & Utilities */
+
+/* --- Windows 7/Vista Style Tooltip --- */
+[data-tooltip] {
+    position: relative;
+}
+
+[data-tooltip]:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 8px;
+    padding: 4px 8px; /* More compact padding */
+    background: linear-gradient(to bottom, #ffffff 0%, #f0f0f0 100%);
+    border: 1px solid #767676;
+    border-radius: 3px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    color: #333;
+    font-size: 12px;
+    font-weight: normal;
+    font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+    white-space: nowrap;
+    z-index: 10000; /* Increased z-index */
+    pointer-events: none;
+    opacity: 0;
+    animation: tooltip-fade-in 0.2s ease-out forwards;
+    text-shadow: none; /* Removed text shadow for cleaner look */
+}
+
+@keyframes tooltip-fade-in {
+    from { opacity: 0; transform: translate(-50%, 4px); }
+    to { opacity: 1; transform: translate(-50%, 0); }
+}

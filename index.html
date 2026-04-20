@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>核类艺术协会™ | 首页</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/ui.css">
+</head>
+<body>
+
+    <div class="flex flex-col min-h-screen relative">
+        
+        <!-- Header Container -->
+        <div id="header-container"></div>
+
+        <!-- Navigation Container -->
+        <div id="nav-container"></div>
+
+        <main class="flex-1 w-full max-w-[1040px] mx-auto px-4 pb-0 relative min-h-[600px]">
+            
+            <div id="tab-Home" class="tab-content animate-fade-in space-y-4">
+                <!-- A. 顶部跑马灯 -->
+                <div id="marquee-container"></div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-start">
+                    <div class="lg:col-span-9 flex flex-col gap-4">
+                        <!-- B. 首页轮播图 -->
+                        <div id="home-slider"></div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-9 gap-4">
+                            <!-- C. 最新动态面板 -->
+                            <div class="md:col-span-4 flex flex-col h-full" id="news-panel"></div>
+
+                            <!-- D. 协会概况面板 -->
+                            <div class="md:col-span-5 flex flex-col h-full" id="about-panel"></div>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-3 flex flex-col gap-4 w-full">
+                        <!-- 侧边栏容器：在移动端/平板端改为网格布局，大屏保持单列 -->
+                        <div class="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-1 gap-4">
+                            <!-- 访客统计 -->
+                            <div id="stats-panel" class="w-full"></div>
+
+                            <!-- E. 加入社群面板 -->
+                            <div id="join-panel" class="w-full"></div>
+
+                            <!-- F. 关注我们面板 -->
+                            <div id="follow-panel" class="w-full"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <!-- Footer Container -->
+        <div id="footer-container"></div>
+
+    </div>
+
+    <!-- Scripts -->
+    <script>window.ACTIVE_PAGE = 'index';</script>
+    <script src="js/data.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

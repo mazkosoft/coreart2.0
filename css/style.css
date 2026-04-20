@@ -1,0 +1,84 @@
+/* --- 全局自定义鼠标样式 (Global Custom Cursor) --- */
+/* 默认指针 (Normal Select) */
+html, body {
+    cursor: url('../img/Normal Select.png'), auto;
+}
+
+/* 链接手型 (Link Select) - 应用于链接、按钮及可点击元素 */
+a, button, .cursor-pointer, [role="button"], input[type="submit"], input[type="button"], summary, label {
+    cursor: url('../img/Link Select.png'), pointer !important;
+}
+
+/* 文本选择 (Text Select) - 应用于输入框和文本区域 */
+input[type="text"], input[type="password"], input[type="email"], input[type="search"], textarea, .cursor-text {
+    cursor: url('../img/Text Select.png'), text !important;
+}
+
+/* 忙碌/等待 (Busy) */
+.cursor-wait, .loading {
+    cursor: url('../img/[animate output image]1.gif'), wait !important;
+}
+
+/* 后台运行 (Working In Background) */
+.cursor-progress {
+    cursor: url('../img/[animate output image]1.gif'), progress !important;
+}
+
+/* 移动 (Move) */
+.cursor-move {
+    cursor: url('../img/Move.png'), move !important;
+}
+
+/* 不可用 (Unavailable) */
+.cursor-not-allowed, :disabled {
+    cursor: url('../img/Unavailable.png'), not-allowed !important;
+}
+
+/* 帮助 (Help Select) */
+.cursor-help {
+    cursor: url('../img/Help Select.png'), help !important;
+}
+
+/* 调整大小 (Resizing) */
+.cursor-ns-resize { cursor: url('../img/Vertical Resize.png'), ns-resize !important; }
+.cursor-ew-resize { cursor: url('../img/Horizontal Resize.png'), ew-resize !important; }
+.cursor-nwse-resize { cursor: url('../img/Diagonal Resize 1.png'), nwse-resize !important; }
+.cursor-nesw-resize { cursor: url('../img/Diagonal Resize 2.png'), nesw-resize !important; }
+
+/* 全局样式与字体 */
+body {
+    font-family: 'Varela Round', 'Microsoft YaHei', 'Verdana', sans-serif;
+    font-size: 13px;
+    color: #003366;
+    background: url('../img/bg.png') no-repeat center center fixed;
+    background-size: cover;
+    min-height: 100vh;
+    overflow-y: scroll;
+}
+/* 扫描线效果 */
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.02) 50%);
+    background-size: 100% 4px;
+    pointer-events: none;
+    z-index: -2;
+}
+/* Aero 滚动条 */
+::-webkit-scrollbar { width: 12px; }
+::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(10px); }
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(to right, rgba(255,255,255,0.8), rgba(150,220,255,0.8), rgba(255,255,255,0.8));
+    border-radius: 6px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+}
+.text-shadow-aero { text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3); }
+.text-shadow-none { text-shadow: none; }
+/* 动画 */
+@keyframes fade-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.animate-fade-in { animation: fade-in 0.3s ease-out forwards; }
+@keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+.animate-marquee { animation: marquee 40s linear infinite; }
+.group:hover .animate-marquee { animation-play-state: paused; }

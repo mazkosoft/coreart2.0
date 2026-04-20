@@ -1,0 +1,605 @@
+/**
+ * 渲染头部 (Header)
+ */
+function renderHeader() {
+    const headerHTML = `
+        <header class="w-full py-3 md:py-14">
+            <div class="max-w-[1040px] mx-auto px-4 flex flex-col md:flex-row md:items-end justify-between gap-6">
+                <div class="flex items-center gap-6 select-none relative">
+                    <div class="w-24 h-24 drop-shadow-[0_0_25px_rgba(255,255,255,0.6)] relative z-10">
+                        <img class="w-full h-full object-contain filter" alt="Logo" src="${SITE_CONFIG.logoUrl}">
+                    </div>
+                    <div class="flex flex-col justify-center relative z-10">
+                        <h1 class="text-5xl lg:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white via-white to-[#cceeff] tracking-tighter leading-none mb-1 drop-shadow-[0_4px_6px_rgba(0,50,100,0.5)]" style="font-family: 'Noto Sans SC', sans-serif;">${SITE_CONFIG.siteTitle}</h1>
+                        <div class="flex items-center gap-1 pl-0">
+                            <div class="h-[2px] w-6 bg-[#00ccff] rounded-full shadow-[0_0_8px_#00ccff]"></div>
+                            <span class="text-[19px] font-black text-white tracking-[0em] drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] opacity-95">${SITE_CONFIG.siteSubtitle}</span>
+                            <div class="ml-2 px-2 py-0.5 rounded-full bg-gradient-to-b from-[#ffcc00] to-[#ffaa00] border border-[#ffeebb] shadow-md transform -skew-x-12">
+                                <span class="text-[9px] font-black text-[#884400] transform skew-x-1 block">BETA1.0</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="absolute left-10 top-1/2 -translate-y-1/2 w-96 h-20 bg-blue-400/20 blur-[60px] rounded-full -z-10"></div>
+                </div>
+
+                <form onsubmit="handleGlobalSearch(event)" class="relative w-full md:w-[260px] h-[34px] group flex shadow-[0_4px_12px_rgba(0,0,0,0.15)] rounded-[0.6rem] mb-1.5 self-end">
+                    <div class="relative flex-1 h-full">
+                        <div class="absolute inset-y-0 left-0 pl-2.5 flex items-center pointer-events-none z-20">
+                            <img src="img/CP016.ico" class="w-[14px] h-[14px] object-contain opacity-50">
+                        </div>
+                        <input id="header-search-input" placeholder="全站搜索..." class="w-full h-full pl-8 pr-2 bg-white/90 backdrop-blur-sm border-[1.5px] border-[#aaddff] border-r-0 rounded-l-[0.6rem] text-[12px] font-bold text-[#004477] placeholder-[#005588]/40 shadow-inner outline-none focus:bg-white transition-all" type="text">
+                    </div>
+                    <button type="submit" class="w-10 h-full bg-gradient-to-b from-[#009dff] via-[#0077ff] to-[#00ccff] border-[1.5px] border-[#0055cc] rounded-r-[0.6rem] flex items-center justify-center relative overflow-hidden group/btn hover:brightness-110 active:brightness-95 cursor-pointer" data-tooltip="执行搜索">
+                        <div class="absolute top-[2px] left-[2px] right-[2px] h-[45%] bg-gradient-to-b from-white/80 to-white/10 rounded-t-[0.3rem] pointer-events-none"></div>
+                        <img src="img/CP016.ico" class="w-[14px] h-[14px] object-contain drop-shadow-md relative z-10 brightness-200">
+                    </button>
+                </form>
+            </div>
+        </header>
+    `;
+    document.getElementById('header-container').innerHTML = headerHTML;
+}
+
+/**
+ * 渲染导航栏 (Navigation)
+ * @param {string} activePage - 当前页面的标识
+ */
+function renderNav(activePage = 'index') {
+    const navItems = (typeof NAV_ITEMS !== 'undefined') ? NAV_ITEMS : [
+        { id: 'index', text: '首页', href: 'index.html' },
+        { id: 'resources', text: '资源', href: 'resources.html' },
+        { id: 'gallery', text: '图集', href: 'gallery.html' },
+        { id: 'articles', text: '文章', href: 'articles.html' },
+        { id: 'videos', text: '视频', href: 'videos.html' },
+        { id: 'musics', text: '音乐', href: 'musics.html' },
+        { id: 'activities', text: '活动', href: 'activities.html' },
+        { id: 'aesthetics', text: '美学', href: 'aesthetics.html' },
+        { id: 'guestbook', text: '留言', href: 'guestbook.html' }
+    ];
+
+    const navHTML = `
+        <div class="w-full mb-4 relative z-50">
+            <div class="max-w-[1040px] mx-auto px-4">
+                <div class="w-full min-h-[52px] bg-gradient-to-b from-[#009dff] via-[#0077ff] to-[#00ccff] border-[1.5px] border-[#0055cc] rounded-[0.8rem] shadow-[0_8px_20px_rgba(0,50,150,0.3),inset_0_1px_1px_rgba(255,255,255,0.6)] p-1.5 flex items-center gap-1.5 relative overflow-visible flex-wrap md:flex-nowrap">
+                    <div class="absolute top-[2px] left-[3px] right-[3px] h-[48%] bg-gradient-to-b from-white/70 to-white/10 pointer-events-none z-10 shadow-[0_1px_1px_rgba(255,255,255,0.3)]" style="border-radius: 0.5rem;"></div>
+                    
+                    ${navItems.map(item => {
+                        const isActive = item.id === activePage;
+                        if (isActive) {
+                            return `
+                                <div class="relative flex-1 h-full group/nav z-20 min-w-[60px]">
+                                    <a href="${item.href}" class="w-full h-full relative py-2.5 rounded-[0.5rem] transition-all duration-200 ease-out text-[13px] font-black tracking-widest uppercase overflow-hidden flex items-center justify-center text-[#004488] shadow-[inset_0_2px_6px_rgba(0,0,0,0.15),0_1px_1px_rgba(255,255,255,0.8)] border-[1.5px] border-[#005588]/50 bg-gradient-to-b from-[#e0efff] via-[#f0f8ff] to-[#ffffff]" data-tooltip="当前页面: ${item.text}">
+                                        <div class="absolute inset-0 bg-gradient-to-b from-black/5 to-transparent pointer-events-none"></div>
+                                        <div class="absolute bottom-0 left-0 right-0 h-[2px] bg-[#55aaff] blur-[1px]"></div>
+                                        <span class="relative z-20 drop-shadow-sm text-shadow-none">${item.text}</span>
+                                    </a>
+                                </div>
+                            `;
+                        } else {
+                            return `
+                                <div class="relative flex-1 h-full group/nav z-20 min-w-[60px]">
+                                    <a href="${item.href}" class="w-full h-full relative py-2.5 rounded-[0.5rem] transition-all duration-200 ease-out text-[13px] font-black tracking-widest uppercase overflow-hidden flex items-center justify-center bg-transparent text-white hover:bg-white/10 border-[1.5px] border-transparent hover:shadow-inner hover:border-white/20" data-tooltip="前往 ${item.text}">
+                                        <span class="relative z-20 drop-shadow-sm text-shadow-aero">${item.text}</span>
+                                    </a>
+                                </div>
+                            `;
+                        }
+                    }).join('')}
+
+                </div>
+            </div>
+        </div>
+    `;
+    document.getElementById('nav-container').innerHTML = navHTML;
+}
+
+/**
+ * 渲染页脚 (Footer)
+ */
+function renderFooter() {
+    const footerHTML = `
+        <footer class="w-full mt-4 pb-6">
+            <div class="max-w-[1040px] mx-auto px-4">
+                <div class="relative bg-[#f0f8ff]/85 backdrop-blur-xl border-[1.5px] border-[#fff]/70 ring-1 ring-[#3a8ef5]/30 shadow-[0_8px_25px_rgba(0,40,80,0.1),inset_0_1px_1px_rgba(255,255,255,0.9)] flex flex-col rounded-[0.6rem]">
+                    <div class="p-3 relative z-0 flex-1 flex flex-col">
+                        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 text-[#003355]">
+                            <div class="md:col-span-5 space-y-4">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 bg-white/60 rounded-[0.6rem] border border-white flex items-center justify-center shadow-sm">
+                                        <i data-lucide="globe" class="text-[#0066aa] w-6 h-6"></i>
+                                    </div>
+                                    <div>
+                                        <h2 class="text-lg font-black font-[Varela Round] tracking-tight text-[#004477]">${SITE_CONFIG.siteTitle}</h2>
+                                        <p class="text-[10px] font-bold uppercase tracking-widest text-[#0066aa]/70">${SITE_CONFIG.siteSubtitle}</p>
+                                    </div>
+                                </div>
+                                <p class="text-xs font-medium leading-relaxed opacity-80 text-justify border-l-2 border-[#0066aa]/30 pl-3">致力于数字美学的挖掘、存档与重构。从 Frutiger Aero 的水晶质感到 Weirdcore 的低保真梦境，我们记录互联网时代的视觉变迁。</p>
+                                <div class="flex flex-wrap gap-2 mt-2" id="footer-socials"></div>
+                            </div>
+                            <div class="md:col-span-3">
+                                <h4 class="font-bold text-xs mb-4 text-[#004477] uppercase tracking-wider flex items-center gap-2">
+                                    <img class="w-[18px] h-[18px]" src="img/App007.ico"> 导航
+                                </h4>
+                                <ul class="space-y-2 text-xs font-medium opacity-80">
+                                    <li><a href="resources.html" class="hover:text-[#0088cc] hover:underline flex items-center gap-2" data-tooltip="浏览美学资源百科">美学资源百科</a></li>
+                                    <li><a href="gallery.html" class="hover:text-[#0088cc] hover:underline flex items-center gap-2" data-tooltip="查看社区视觉图集">社区视觉图集</a></li>
+                                    <li><a href="articles.html" class="hover:text-[#0088cc] hover:underline flex items-center gap-2" data-tooltip="阅读深度科普专栏">深度科普专栏</a></li>
+                                    <li><a href="guestbook.html" class="hover:text-[#0088cc] hover:underline flex items-center gap-2" data-tooltip="前往访客留言板">访客留言板</a></li>
+                                </ul>
+                            </div>
+                            <div class="md:col-span-4">
+                                <h4 class="font-bold text-xs mb-4 text-[#004477] uppercase tracking-wider flex items-center gap-2">
+                                    <img src="img/Alert038.ico" class="w-[18px] h-[18px] object-contain"> 管理与联系
+                                </h4>
+                                <div class="flex flex-col gap-3">
+                                    <div class="bg-white/40 border border-[#005588]/20 rounded-lg p-3">
+                                        <div class="text-xs font-bold text-[#004477] mb-1">Code 管理团队</div>
+                                        <div class="flex items-center gap-2 text-xs opacity-70">
+                                            <i data-lucide="mail" class="w-3 h-3"></i> ${SITE_CONFIG.contactEmail}
+                                        </div>
+                                    </div>
+                                    <p class="text-[9px] text-[#004466]/60 leading-tight mt-1">${SITE_CONFIG.footerText}<br>Designed with Gemini Pro.By <a href="https://max-os.netlify.app" target="_blank">mazko</a> & 521.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    `;
+    document.getElementById('footer-container').innerHTML = footerHTML;
+    renderSocials('footer-socials');
+    if (window.lucide) { lucide.createIcons(); }
+}
+
+/**
+ * 渲染社交媒体图标
+ */
+function renderSocials(containerId) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    const html = SOCIAL_LINKS.map(link => `
+        <a href="${link.url}" target="_blank" rel="noreferrer" class="group relative flex flex-col items-center justify-center gap-1 w-4 h-4 md:w-6 md:h-6 hover:scale-110 transition-transform cursor-pointer" title="${link.platform}" data-tooltip="访问 ${link.platform}">
+            <div class="absolute bottom-1 w-full h-1 bg-black/10 rounded-full blur-[2px]"></div>
+            <img src="${link.icon}" class="w-full h-full object-contain drop-shadow-sm filter">
+        </a>
+    `).join('');
+    
+    container.innerHTML = html;
+}
+
+/**
+ * 渲染顶部跑马灯 (Marquee)
+ */
+function renderMarquee(target) {
+    const container = typeof target === 'string' ? document.getElementById(target) : target;
+    if (!container) return;
+
+    container.innerHTML = `
+        <div class="relative w-full h-[36px] bg-gradient-to-b from-[#f0f9ff] to-[#e6f4ff] border-[1.5px] border-[#b8d0e8] rounded-[0.6rem] shadow-sm overflow-hidden flex items-center group hover:border-[#aaddff] transition-colors">
+            <div class="absolute left-0 top-0 bottom-0 z-20 flex items-center pl-3 pr-4 bg-[#e6f4ff] border-r border-white/50 shadow-[2px_0_5px_rgba(0,0,0,0.05)]">
+                <div class="flex items-center gap-1 text-[#0066cc]">
+                    <img src="img/Alert057.ico" class="w-[20px] h-[20px] object-contain drop-shadow-sm">
+                    <span class="text-[12px] font-black text-[#005588] uppercase tracking-wider text-shadow-sm">公告 Notice</span>
+                </div>
+            </div>
+            <div class="flex-1 overflow-hidden relative h-full flex items-center pl-[125px] w-full mask-linear">
+                <div class="whitespace-nowrap flex gap-16 animate-marquee group-hover:pause text-[12px] font-bold text-[#004477]">
+                    <span>${MARQUEE_TEXT}</span>
+                    <span>${MARQUEE_TEXT}</span>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+/**
+ * 渲染首页轮播图结构 (Home Slider Structure)
+ */
+function renderHomeSlider(target) {
+    const container = typeof target === 'string' ? document.getElementById(target) : target;
+    if (!container) return;
+    container.className = "relative w-full h-[320px] rounded-[0.8rem] overflow-hidden border-[1.5px] border-[#aaddff] shadow-[0_8px_25px_rgba(0,0,0,0.15)] group bg-black";
+}
+
+/**
+ * 通用面板创建函数
+ */
+function createPanelHTML(title, iconSrc, contentHTML, extraClasses = "") {
+    return `
+        <div class="relative bg-[#f0f8ff]/85 backdrop-blur-xl border-[1.5px] border-[#fff]/70 ring-1 ring-[#3a8ef5]/30 shadow-[0_8px_25px_rgba(0,40,80,0.1),inset_0_1px_1px_rgba(255,255,255,0.9)] flex flex-col rounded-[0.6rem] ${extraClasses}">
+            <div class="relative bg-gradient-to-b from-[#009dff] via-[#0077ff] to-[#00ccff] border-[#0055cc] flex items-center justify-between px-4 border-b-[1.5px] shadow-sm shrink-0 rounded-t-[0.6rem] h-[36px]">
+                <div class="absolute top-[2px] left-[3px] right-[3px] h-[48%] bg-gradient-to-b from-white/70 to-white/10 pointer-events-none z-10 shadow-[0_1px_1px_rgba(255,255,255,0.3)] rounded-[0.4rem]"></div>
+                <div class="relative z-20 flex items-center gap-2 text-white font-black text-[13px] drop-shadow-[0_1px_2px_rgba(0,0,0,0.4)] pl-1">
+                    <img src="${iconSrc}" class="w-[25px] h-[25px] object-contain drop-shadow-md filter">
+                    <span class="uppercase tracking-[0.1em] pt-0.5 text-shadow-aero font-[Noto Sans SC]">${title}</span>
+                </div>
+            </div>
+            ${contentHTML}
+        </div>
+    `;
+}
+
+/**
+ * 渲染最新动态面板 (News Panel)
+ */
+function renderNewsPanel(target) {
+    const container = typeof target === 'string' ? document.getElementById(target) : target;
+    if (!container) return;
+
+    const content = `
+        <div class="p-4 flex flex-col md:flex-row h-[410px] gap-4">
+            <div class="flex-1 flex flex-col gap-3 overflow-y-auto pr-2">
+                ${NEWS_ITEMS.map(item => `
+                    <a href="${item.url}" target="${item.url.startsWith('http') ? '_blank' : '_self'}" class="flex items-center gap-3 p-2.5 bg-gradient-to-b from-[#fffdf5] to-white border border-[#ffe0b2] rounded-[0.5rem] hover:border-orange-300 transition-colors cursor-pointer group shadow-sm" data-tooltip="点击查看: ${item.title}">
+                        <div class="w-32 h-24 shrink-0 rounded-[0.3rem] overflow-hidden relative border border-[#ffcc88] shadow-inner">
+                            <img class="w-full h-full object-cover group-hover:scale-110 transition-transform" src="${item.img}">
+                            ${item.type === 'video' ? `
+                            <div class="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/10 transition-colors">
+                                <div class="w-6 h-6 bg-white/80 rounded-full flex items-center justify-center shadow-sm">
+                                    <i data-lucide="play" class="w-4 h-4 text-[#0066cc] ml-0.5 fill-current"></i>
+                                </div>
+                            </div>` : ''}
+                        </div>
+                        <div class="flex-1 min-w-0 self-start pt-1">
+                            <h4 class="font-black text-[#cc4400] text-xs leading-tight mb-1 group-hover:underline">${item.title}</h4>
+                            <p class="text-[10px] text-[#885500] leading-normal line-clamp-3">${item.desc}</p>
+                        </div>
+                    </a>
+                `).join('')}
+            </div>
+        </div>
+    `;
+
+    container.innerHTML = createPanelHTML(
+        "最新动态 (News)", 
+        "img/imageres_101.ico", 
+        content,
+        "h-[450px]"
+    );
+}
+
+/**
+ * 渲染协会概况面板 (About Panel)
+ */
+function renderAboutPanel(target) {
+    const container = typeof target === 'string' ? document.getElementById(target) : target;
+    if (!container) return;
+
+    const content = `
+        <div class="p-4 flex flex-col md:flex-row h-[410px] gap-4">
+            <div class="flex-1 flex flex-col gap-3 overflow-y-auto pr-2">
+                ${ABOUT_DATA.sections.map(section => `
+                    <div class="bg-white/40 border border-[#e0f0ff] p-3 rounded-lg shadow-sm">
+                        <h4 class="flex items-center gap-1.5 font-black text-[13px] text-[#004477] mb-2 uppercase tracking-wide border-b border-[#aaddff]/40 pb-1">
+                            <i data-lucide="${section.icon}" class="w-[18px] h-[18px] ${section.iconColor}"></i> ${section.title}
+                        </h4>
+                        <p class="text-[11px] leading-relaxed opacity-90 text-justify">${section.content}</p>
+                    </div>
+                `).join('')}
+            </div>
+            
+            <div class="w-full md:w-[150px] shrink-0 border-l border-[#aaddff] flex flex-col pl-4">
+                <h4 class="flex items-center gap-1.5 font-black text-[12px] text-[#005588] mb-3 uppercase tracking-wide sticky top-0">
+                    <i data-lucide="clock" class="w-[16px] h-[16px]"></i> 大事记
+                </h4>
+                <div class="relative border-l-2 border-[#aaddff]/60 space-y-6 ml-1 pl-4 py-2">
+                    ${ABOUT_DATA.timeline.map(event => `
+                        <div class="relative group">
+                            <div class="absolute -left-[23px] top-1 w-2.5 h-2.5 bg-white border-2 border-[#0088cc] rounded-full shadow-sm group-hover:scale-125 transition-transform"></div>
+                            <div class="text-[9px] font-black text-[#0066cc] mb-0.5 bg-blue-50 inline-block px-1 rounded border border-blue-100">${event.date}</div>
+                            <div class="text-[10px] font-bold text-[#334455] leading-tight group-hover:text-[#005588]">${event.title}</div>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        </div>
+    `;
+
+    container.innerHTML = createPanelHTML(
+        "协会概况 (About)", 
+        "img/imageres_87.ico", 
+        content,
+        "h-[450px]"
+    );
+}
+
+/**
+ * 渲染访客统计面板 (Stats Panel)
+ */
+function renderStatsPanel(target) {
+  const container = typeof target === 'string' ? document.getElementById(target) : target;
+  if (!container) return;
+
+  if (!document.querySelector('script[src*="vercount"]')) {
+    const s = document.createElement('script');
+    s.src = 'https://vercount.one/js';
+    s.defer = true;
+    document.head.appendChild(s);
+  }
+
+  const content = `
+    <div class="p-4">
+      <div class="flex flex-col bg-white/40 border border-[#aaddff] rounded-[0.5rem] p-3 shadow-inner gap-2">
+        <div class="flex items-center justify-between px-1 h-6">
+          <span class="text-[12px] font-bold text-[#005588]">总访客数：</span>
+          <div class="text-[12px] font-bold text-[#004477] font-mono">
+            <span id="vercount_value_site_uv">Loading...</span>
+          </div>
+        </div>
+        <div class="h-[1px] w-full bg-[#aaddff]/50"></div>
+        <div class="flex items-center justify-between px-1 h-6">
+          <span class="text-[12px] font-bold text-[#005588]">总访问量：</span>
+          <div class="text-[12px] font-bold text-[#004477] font-mono">
+            <span id="vercount_value_site_pv">Loading...</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+
+    container.innerHTML = createPanelHTML(
+        "访客统计", 
+        "img/App037.ico", 
+        content
+    );
+}
+
+/**
+ * 渲染加入社群面板 (Join Panel)
+ */
+function renderJoinPanel(target) {
+    const container = typeof target === 'string' ? document.getElementById(target) : target;
+    if (!container) return;
+
+    const config = (typeof JOIN_CONFIG !== 'undefined') ? JOIN_CONFIG : {
+        title: "加入社群 (Join)",
+        icon: "img/oobefldr_4.ico",
+        welcomeText: "欢迎来到 CORE Art Association。点击下方按钮加入官方交流群。",
+        avatarUrl: "img/wiredcore.jpg",
+        qqGroupUrl: "https://qm.qq.com/q/tKnyByyci4",
+        helpUrl: "https://coreart.cn/help"
+    };
+
+    const content = `
+        <div class="p-4 flex flex-col gap-3">
+            <div class="flex-1 flex flex-col items-center justify-center text-center p-4 bg-gradient-to-b from-white to-blue-50 rounded-lg border border-blue-100/50 shadow-inner">
+                <div class="w-14 h-14 bg-white rounded-full flex items-center justify-center border border-[#aaddff] shadow-sm mb-3 relative">
+                    <img src="${config.avatarUrl}" class="w-full h-full object-cover rounded-full">
+                    <div class="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white z-10"></div>
+                </div>
+                <p class="text-[11px] text-[#446688] font-bold leading-tight">${config.welcomeText}</p>
+            </div>
+            <a href="${config.qqGroupUrl}" target="_blank" class="relative inline-flex items-center justify-center gap-1.5 px-4 py-3 rounded-[0.6rem] font-black text-white text-[12px] shadow-md border-[1.5px] border-[#0055cc] bg-gradient-to-b from-[#009dff] via-[#0077ff] to-[#00ccff] hover:brightness-110 active:translate-y-[1px] transition-all cursor-pointer w-full group/btn" data-tooltip="点击加入官方 QQ 群">
+                <div class="absolute top-[2px] left-[2px] right-[2px] h-[45%] bg-gradient-to-b from-white/90 to-white/10 rounded-[0.35rem] pointer-events-none z-10"></div>
+                <span class="relative z-20 drop-shadow flex items-center gap-2"><img src="img/netcenter_7.ico" class="w-5 h-5 object-contain"> 加入官方群</span>
+            </a>
+            <div class="grid grid-cols-2 gap-2">
+                <a href="mailto:${SITE_CONFIG.contactEmail}" class="relative inline-flex items-center justify-center gap-1.5 px-2 py-1.5 rounded-[0.5rem] font-black text-[#005588] text-[10px] shadow-sm border-[1.5px] border-[#a0b0c0] bg-gradient-to-b from-white to-[#f0f9ff] hover:brightness-110 active:translate-y-[1px] transition-all cursor-pointer w-full group/btn" data-tooltip="发送邮件联系我们">
+                    <div class="absolute top-[2px] left-[2px] right-[2px] h-[45%] bg-gradient-to-b from-white/90 to-white/10 rounded-[0.35rem] pointer-events-none z-10"></div>
+                    <span class="relative z-20 flex items-center gap-1"><img src="img/Alert001.ico" class="w-4 h-4 object-contain"> 联系我们</span>
+                </a>
+                <a href="${config.helpUrl}" target="_blank" class="relative inline-flex items-center justify-center gap-1.5 px-2 py-1.5 rounded-[0.5rem] font-black text-[#005588] text-[10px] shadow-sm border-[1.5px] border-[#a0b0c0] bg-gradient-to-b from-white to-[#f0f9ff] hover:brightness-110 active:translate-y-[1px] transition-all cursor-pointer w-full group/btn" data-tooltip="查看新手指引文档">
+                    <div class="absolute top-[2px] left-[2px] right-[2px] h-[45%] bg-gradient-to-b from-white/90 to-white/10 rounded-[0.35rem] pointer-events-none z-10"></div>
+                    <span class="relative z-20 flex items-center gap-1"><img src="img/Alert002.ico" class="w-4 h-4 object-contain"> 新手指引</span>
+                </a>
+            </div>
+        </div>
+    `;
+
+    container.innerHTML = createPanelHTML(
+        config.title, 
+        config.icon, 
+        content
+    );
+}
+
+/**
+ * 渲染关注我们面板 (Follow Panel)
+ */
+function renderFollowPanel(target) {
+    const container = typeof target === 'string' ? document.getElementById(target) : target;
+    if (!container) return;
+
+    const content = `
+        <div class="p-4 bg-[#eef6ff] border border-[#dceeff] rounded-[0.5rem] m-4 shadow-inner">
+            <div class="grid grid-cols-4 gap-3 justify-items-center" id="social-grid"></div>
+        </div>
+        <div class="text-center pb-4 text-[9px] text-[#88aabb] font-bold">关注社交媒体账号获取第一手资讯</div>
+    `;
+
+    container.innerHTML = createPanelHTML(
+        "关注我们", 
+        "img/Net030.ico", 
+        content
+    );
+    renderSocials('social-grid');
+}
+
+/**
+ * 渲染模态框 (Modals)
+ */
+function renderModals() {
+    const modalsHTML = `
+        <div id="artist-modal" class="fixed inset-0 z-[9999] hidden flex items-center justify-center p-4 overflow-hidden">
+            <div class="absolute inset-0 bg-black/40 backdrop-blur-[2px] animate-fade-in" onclick="closeModal()"></div>
+            <div class="relative w-full max-w-3xl flex flex-col rounded-[8px] bg-[#f0f0f0] shadow-2xl animate-fade-in overflow-hidden border border-[#101010]" style="box-shadow: inset 0 0 0 1px rgba(255,255,255,0.3), 0 0 20px rgba(0,0,0,0.8); padding: 5px;">
+                <div class="absolute inset-0 bg-[#bdcce4]/70 backdrop-blur-md rounded-[6px] -z-10"></div>
+                <div class="h-8 flex items-center justify-between px-2 shrink-0 select-none relative z-20">
+                    <div class="flex items-center gap-2 text-shadow-aero">
+                        <img src="img/imageres_18.ico" class="w-4 h-4 drop-shadow-md">
+                        <span id="modal-title" class="text-[12px] font-bold text-[#1e1e1e] drop-shadow-[0_0_3px_white]">Artist Name</span>
+                    </div>
+                    <div class="flex items-center gap-1">
+                        <button class="w-7 h-5 bg-white/30 rounded-[3px] shadow-[inset_0_1px_0_rgba(255,255,255,0.7),0_1px_2px_rgba(0,0,0,0.2)] border border-[#6b7c91] text-[#1e1e1e] hover:bg-white/60 flex items-center justify-center">
+                            <i data-lucide="minus" class="w-3 h-3"></i>
+                        </button>
+                        <button class="w-7 h-5 bg-white/30 rounded-[3px] shadow-[inset_0_1px_0_rgba(255,255,255,0.7),0_1px_2px_rgba(0,0,0,0.2)] border border-[#6b7c91] text-[#1e1e1e] hover:bg-white/60 flex items-center justify-center">
+                            <i data-lucide="maximize-2" class="w-3 h-3"></i>
+                        </button>
+                        <button onclick="closeModal()" class="w-12 h-5 bg-[#d86363] rounded-[3px] border border-[#8f2828] text-white hover:bg-[#e62e2e] flex items-center justify-center shadow-inner" data-tooltip="关闭">
+                            <i data-lucide="x" class="w-3.5 h-3.5 drop-shadow-sm"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-[3px] border border-[#767676] shadow-inner mt-1 flex-1 overflow-hidden flex flex-col relative max-h-[75vh]">
+                    <div class="h-[24px] bg-gradient-to-r from-[#f0f6fc] to-white border-b border-[#e5e5e5] w-full flex items-center px-4 text-[10px] text-[#556677]">
+                        <span class="opacity-70">Library</span> <i data-lucide="chevron-right" class="w-3 h-3 mx-1"></i> Aesthetics <i data-lucide="chevron-right" class="w-3 h-3 mx-1"></i> <span id="modal-category" class="font-bold text-[#1e395b]"></span>
+                    </div>
+                    <div id="modal-body" class="flex-1 overflow-y-auto p-6 aero-scrollbar">
+                        </div>
+                    <div class="h-6 bg-[#f0f0f0] border-t border-[#d9d9d9] flex items-center px-4 text-[10px] text-[#333] shrink-0 font-sans mt-auto">
+                        <span id="modal-status-items" class="mr-4">Items: 0</span>
+                        <span class="mr-4 opacity-50">|</span>
+                        <span id="modal-status-cat">Classification: None</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="search-modal" class="fixed inset-0 z-[99999] hidden flex items-center justify-center p-4">
+            <div class="absolute inset-0 bg-black/40 backdrop-blur-md animate-fade-in" onclick="closeSearch()"></div>
+            <div class="relative w-full max-w-2xl max-h-[80vh] flex flex-col bg-[#f0f8ff]/95 backdrop-blur-xl border-[1.5px] border-white/70 rounded-[0.8rem] shadow-[0_20px_50px_rgba(0,50,100,0.5),inset_0_1px_1px_rgba(255,255,255,0.9)] animate-fade-in overflow-hidden">
+                <div class="h-12 bg-gradient-to-b from-white to-[#e6f4ff] border-b border-[#aaddff] flex items-center justify-between px-4 shrink-0">
+                    <div class="flex items-center gap-2 text-[#004477] font-black">
+                        <i data-lucide="search" class="w-4 h-4"></i>
+                        <span>搜索结果: "<span id="search-query-display"></span>"</span>
+                    </div>
+                    <button onclick="closeSearch()" class="p-1 hover:bg-red-500 hover:text-white rounded transition-colors text-[#557799]" data-tooltip="关闭搜索">
+                        <i data-lucide="x" class="w-4 h-4"></i>
+                    </button>
+                </div>
+                <div id="global-search-results" class="flex-1 overflow-y-auto p-4 aero-scrollbar space-y-6">
+                    </div>
+                <div class="h-8 bg-[#e6f4ff] border-t border-[#aaddff] flex items-center justify-center text-[10px] text-[#557799] font-bold">
+                    按 ESC 退出搜索
+                </div>
+            </div>
+        </div>
+    `;
+    
+    document.body.insertAdjacentHTML('beforeend', modalsHTML);
+}
+
+/**
+ * 渲染视频页面 (Videos Page)
+ */
+function renderVideosPage(containerId) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    const videos = (typeof VIDEOS_DATA !== 'undefined') ? VIDEOS_DATA : [];
+    
+    const html = `
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            ${videos.map(video => `
+                <div class="group flex flex-col gap-2 cursor-pointer">
+                    <div class="relative aspect-video rounded-lg overflow-hidden border border-[#aaddff] shadow-sm group-hover:shadow-md transition-all">
+                        <img src="${video.cover}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors flex items-center justify-center">
+                            <div class="w-10 h-10 bg-white/90 rounded-full flex items-center justify-center shadow-lg transform scale-90 group-hover:scale-100 transition-transform">
+                                <i data-lucide="play" class="w-5 h-5 text-[#0066cc] ml-0.5 fill-current"></i>
+                            </div>
+                        </div>
+                        <div class="absolute bottom-2 right-2 px-1.5 py-0.5 bg-black/60 text-white text-[10px] font-bold rounded">${video.date || 'N/A'}</div>
+                    </div>
+                    <div>
+                        <h3 class="font-black text-[#004477] text-sm leading-tight group-hover:text-[#0088cc] line-clamp-2 mb-1"><a href="${video.url}" target="_blank">${video.title}</a></h3>
+                    </div>
+                </div>
+            `).join('')}
+        </div>
+    `;
+    container.innerHTML = html;
+}
+
+/**
+ * 渲染音乐页面 (Musics Page)
+ */
+function renderMusicsPage(containerId) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    const playlist = (typeof MUSIC_PLAYLIST !== 'undefined') ? MUSIC_PLAYLIST : [];
+
+    const html = `
+        <div class="space-y-4">
+            ${playlist.map((track, idx) => `
+                <div class="flex items-center gap-4 p-4 bg-white/60 border border-[#e0efff] rounded-xl hover:bg-white hover:shadow-md transition-all group">
+                    <div class="w-16 h-16 rounded-lg overflow-hidden border border-gray-200 relative shrink-0">
+                        <img src="${track.cover}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
+                            <i data-lucide="play" class="w-6 h-6 text-white opacity-0 group-hover:opacity-100 transition-opacity drop-shadow-md"></i>
+                        </div>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h3 class="font-black text-[#004477] text-lg truncate">${track.title}</h3>
+                        <p class="text-xs font-bold text-[#557799]">${track.artist}</p>
+                    </div>
+                    <a href="${track.url}" target="_blank" class="px-4 py-2 bg-[#e6f4ff] text-[#0066cc] rounded-lg font-bold text-xs hover:bg-[#0099ff] hover:text-white transition-colors">
+                        播放
+                    </a>
+                </div>
+            `).join('')}
+        </div>
+    `;
+    container.innerHTML = html;
+}
+
+/**
+ * 渲染文章页面 (Articles Page)
+ */
+function renderArticlesPage(containerId) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    const articles = (typeof ARTICLES_DATA !== 'undefined') ? ARTICLES_DATA : [];
+
+    const html = `
+        <div class="grid gap-6">
+            ${articles.map(article => `
+                <a href="${article.url}" target="_blank" class="flex flex-col md:flex-row gap-6 p-6 bg-white/60 border border-[#e0efff] rounded-xl hover:bg-white hover:shadow-lg transition-all group">
+                    <div class="w-full md:w-48 h-32 shrink-0 rounded-lg overflow-hidden border border-gray-200 relative">
+                        <img src="${article.cover}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="flex-1 flex flex-col justify-center">
+                        <div class="flex items-center gap-2 text-[10px] font-bold text-[#88aabb] mb-2">
+                            <span class="bg-blue-50 text-blue-600 px-2 py-0.5 rounded border border-blue-100">ARTICLE</span>
+                            <span>${article.date}</span>
+                        </div>
+                        <h3 class="text-xl font-black text-[#004477] mb-2 group-hover:text-[#0088cc] transition-colors">${article.title}</h3>
+                        <p class="text-sm text-gray-600 line-clamp-2 leading-relaxed">${article.summary}</p>
+                    </div>
+                </a>
+            `).join('')}
+        </div>
+    `;
+    container.innerHTML = html;
+}
+
+/**
+ * 渲染美学页面 (Aesthetics Page)
+ */
+function renderAestheticsPage(containerId) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    const artists = (typeof ARTISTS !== 'undefined') ? ARTISTS : [];
+
+    const html = `
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            ${artists.map(artist => `
+                <div onclick="openArtistModal('${artist.id}')" class="group relative aspect-[3/4] rounded-xl overflow-hidden border border-[#aaddff] shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer bg-white">
+                    <img src="${artist.coverImage}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#002244] via-transparent to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-4">
+                        <div class="text-[10px] font-bold text-[#44ccff] mb-1 uppercase tracking-wider">${artist.category}</div>
+                        <h3 class="text-lg font-black text-white leading-tight drop-shadow-md font-['Varela Round']">${artist.name}</h3>
+                    </div>
+                </div>
+            `).join('')}
+        </div>
+    `;
+    container.innerHTML = html;
+}
