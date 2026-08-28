@@ -18,12 +18,12 @@
             box-shadow: inset 0 1px 2px rgba(255,255,255,0.8), 0 1px 2px rgba(0,0,0,0.05);
         }
         .admin-card {
-            background: rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 8px 16px rgba(0,50,100,0.05), inset 0 1px 1px rgba(255,255,255,1);
         }
-        /* Data Grid */
+        /* Data Grid 优化 */
         .data-grid-header {
             background: linear-gradient(to bottom, #f9fcff, #e6f0fa);
             border-bottom: 1px solid #cceeff;
@@ -32,100 +32,103 @@
             font-size: 11px;
             text-transform: uppercase;
         }
-        .data-grid-row:nth-child(even) { background-color: rgba(240, 248, 255, 0.3); }
-        .data-grid-row:hover { background-color: #f0f9ff; }
+        .data-grid-row:nth-child(even) { background-color: rgba(240, 248, 255, 0.4); }
+        .data-grid-row:hover { background-color: #eef8ff; transition: all 0.2s; }
+        
+        /* 隐藏全局滚动条，使用自定义的 Aero 滚动条 */
+        #admin-nav::-webkit-scrollbar, #admin-content::-webkit-scrollbar {
+            width: 8px;
+        }
+        #admin-nav::-webkit-scrollbar-thumb, #admin-content::-webkit-scrollbar-thumb {
+            background: #aaddff;
+            border-radius: 4px;
+        }
+        #admin-nav::-webkit-scrollbar-thumb:hover, #admin-content::-webkit-scrollbar-thumb:hover {
+            background: #77bbff;
+        }
     </style>
 </head>
-<body class="overflow-hidden">
+<body class="overflow-hidden bg-[#eef8ff]">
 
-    <!-- Login Overlay -->
-    <div id="login-screen" class="fixed inset-0 z-[9999] bg-[url('https://wallpapercave.com/wp/wp13908387.png')] bg-cover bg-center flex items-center justify-center">
-        <div class="absolute inset-0 bg-black/20 backdrop-blur-sm"></div>
-        <div class="relative bg-white/80 backdrop-blur-xl border border-white/60 p-8 rounded-2xl shadow-2xl w-full max-w-md flex flex-col items-center gap-6 animate-fade-in">
-            <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-md border border-[#aaddff]">
-                <img src="https://raw.githubusercontent.com/Visnalize/resources/main/icons/win7/Filetypes%2C%20Devices%2C%20Miscellaneous/imageres_101.ico" class="w-12 h-12 object-contain">
+    <div id="login-screen" class="fixed inset-0 z-[9999] bg-[url('img/bg.png')] bg-cover bg-center flex items-center justify-center">
+        <div class="absolute inset-0 bg-black/30 backdrop-blur-md"></div>
+        <div class="relative bg-white/85 backdrop-blur-xl border-[1.5px] border-white/80 p-8 rounded-[1.2rem] shadow-[0_20px_50px_rgba(0,0,0,0.3)] w-full max-w-md flex flex-col items-center gap-6 animate-fade-in">
+            <div class="w-20 h-20 bg-gradient-to-b from-white to-[#f0f8ff] rounded-full flex items-center justify-center shadow-[0_4px_10px_rgba(0,50,100,0.1)] border-[2px] border-[#aaddff]">
+                <img src="img/imageres_101.ico" class="w-12 h-12 object-contain drop-shadow-sm">
             </div>
             <div class="text-center">
-                <h2 class="text-2xl font-black text-[#004477]">CORE ADMIN</h2>
-                <p class="text-sm text-[#557799] font-bold">网站管理控制台</p>
+                <h2 class="text-2xl font-black text-[#004477] tracking-wide">CORE ADMIN</h2>
+                <p class="text-[11px] text-[#557799] font-bold uppercase tracking-widest mt-1">网站管理控制台</p>
             </div>
-            <form onsubmit="handleLogin(event)" class="w-full flex flex-col gap-3">
-                <div class="relative">
-                    <i data-lucide="lock" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#88aabb]"></i>
-                    <input type="password" id="admin-password" placeholder="请输入管理员密码 (admin)" class="w-full pl-10 pr-4 py-2.5 rounded-lg border border-[#aaddff] bg-white/80 outline-none focus:ring-2 focus:ring-[#0099ff]/30 text-[#004477] font-bold shadow-inner">
+            <form onsubmit="handleLogin(event)" class="w-full flex flex-col gap-4">
+                <div class="relative group">
+                    <i data-lucide="lock" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#88aabb] group-focus-within:text-[#0088cc] transition-colors"></i>
+                    <input type="password" id="admin-password" placeholder="请输入管理员密码 (admin)" class="w-full pl-10 pr-4 py-3 rounded-xl border-[1.5px] border-[#aaddff] bg-white/90 outline-none focus:border-[#0099ff] focus:ring-4 focus:ring-[#0099ff]/20 text-[#004477] font-bold shadow-inner transition-all">
                 </div>
-                <button type="submit" class="w-full py-2.5 bg-gradient-to-b from-[#009dff] to-[#0077ff] text-white font-black rounded-lg shadow-md hover:brightness-110 active:scale-[0.98] transition-all border border-[#0055cc]">
-                    登录 / LOGIN
+                <button type="submit" class="w-full py-3 bg-gradient-to-b from-[#009dff] via-[#0077ff] to-[#0055cc] text-white font-black rounded-xl shadow-[0_4px_15px_rgba(0,100,255,0.3)] hover:brightness-110 active:scale-[0.98] transition-all border border-[#0044aa] relative overflow-hidden">
+                    <div class="absolute top-[2px] left-[2px] right-[2px] h-[45%] bg-gradient-to-b from-white/40 to-transparent rounded-t-lg pointer-events-none"></div>
+                    <span class="relative z-10 tracking-widest">登录 / LOGIN</span>
                 </button>
             </form>
-            <p class="text-[10px] text-[#88aabb]">Authorized Personnel Only</p>
+            <div class="w-full h-[1px] bg-gradient-to-r from-transparent via-[#aaddff] to-transparent mt-2"></div>
+            <p class="text-[10px] text-[#88aabb] font-bold tracking-wider">Authorized Personnel Only</p>
         </div>
     </div>
 
-    <!-- Main Admin Interface -->
-    <div id="admin-interface" class="hidden flex h-screen w-full bg-[#eef8ff]">
+    <div id="admin-interface" class="hidden flex h-screen w-full">
         
-        <!-- Sidebar -->
-        <aside class="w-64 bg-gradient-to-b from-[#f0f9ff] to-[#e0efff] border-r border-[#cceeff] flex flex-col shrink-0 z-20 shadow-lg">
-            <!-- Sidebar Header -->
-            <div class="h-14 flex items-center gap-3 px-4 border-b border-[#cceeff] bg-white/50">
-                <img src="https://raw.githubusercontent.com/Visnalize/resources/main/icons/win7/Filetypes%2C%20Devices%2C%20Miscellaneous/imageres_101.ico" class="w-8 h-8">
+        <aside class="w-64 bg-gradient-to-b from-[#f4faff] to-[#e6f4ff] border-r border-[#cceeff] flex flex-col shrink-0 z-20 shadow-[2px_0_10px_rgba(0,50,100,0.05)]">
+            <div class="h-16 flex items-center gap-3 px-5 border-b border-[#cceeff] bg-white/60 backdrop-blur-md">
+                <img src="img/imageres_101.ico" class="w-8 h-8 drop-shadow-sm">
                 <div>
-                    <h1 class="text-sm font-black text-[#004477]">CORE ADMIN</h1>
+                    <h1 class="text-sm font-black text-[#004477] tracking-wide">CORE ADMIN</h1>
                     <div class="flex items-center gap-1.5">
-                        <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                        <span class="text-[10px] font-bold text-[#557799]">Online</span>
+                        <div class="w-2 h-2 bg-[#00cc66] rounded-full shadow-[0_0_5px_#00cc66] animate-pulse"></div>
+                        <span class="text-[10px] font-bold text-[#557799] uppercase">System Online</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Navigation -->
-            <nav class="flex-1 overflow-y-auto p-3 space-y-1" id="admin-nav">
-                <!-- Nav items injected by JS -->
-            </nav>
+            <nav class="flex-1 overflow-y-auto p-4 space-y-2" id="admin-nav">
+                </nav>
 
-            <!-- Sidebar Footer -->
-            <div class="p-3 border-t border-[#cceeff] bg-white/30">
-                <button onclick="handleLogout()" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-[#cc4444] hover:bg-red-50 hover:border-red-100 border border-transparent transition-all text-xs font-bold">
-                    <i data-lucide="log-out" class="w-4 h-4"></i> 退出登录
+            <div class="p-4 border-t border-[#cceeff] bg-white/40">
+                <button onclick="handleLogout()" class="w-full flex items-center justify-center gap-2 px-3 py-2.5 rounded-lg text-[#cc4444] bg-white border border-[#ffcccc] hover:bg-[#fff0f0] hover:border-[#ff9999] shadow-sm transition-all text-xs font-bold">
+                    <i data-lucide="log-out" class="w-4 h-4"></i> 安全退出
                 </button>
             </div>
         </aside>
 
-        <!-- Main Content -->
-        <main class="flex-1 flex flex-col min-w-0 bg-[url('https://www.transparenttextures.com/patterns/grid-me.png')]">
+        <main class="flex-1 flex flex-col min-w-0 relative">
+            <div class="absolute inset-0 bg-[radial-gradient(#dceeff_1px,transparent_1px)] [background-size:16px_16px] opacity-50 pointer-events-none -z-10"></div>
             
-            <!-- Top Bar -->
-            <header class="h-14 bg-white/80 backdrop-blur-md border-b border-[#cceeff] flex items-center justify-between px-6 shadow-sm z-10">
-                <h2 id="page-title" class="text-lg font-black text-[#004477] flex items-center gap-2">
+            <header class="h-16 bg-white/70 backdrop-blur-xl border-b border-[#cceeff] flex items-center justify-between px-8 shadow-sm z-10 shrink-0">
+                <h2 id="page-title" class="text-lg font-black text-[#004477] flex items-center gap-2.5 drop-shadow-sm">
                     <i data-lucide="layout-dashboard" class="w-5 h-5 text-[#0088cc]"></i> 仪表盘
                 </h2>
                 <div class="flex items-center gap-3">
-                    <button onclick="saveAllData()" class="flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-b from-[#00cc66] to-[#00aa55] text-white text-xs font-bold rounded shadow-sm border border-[#008844] hover:brightness-110 active:translate-y-[1px]">
-                        <i data-lucide="save" class="w-3.5 h-3.5"></i> 保存更改
+                    <button onclick="saveAllData()" class="flex items-center gap-1.5 px-4 py-2 bg-gradient-to-b from-[#00cc66] to-[#00aa55] text-white text-xs font-bold rounded-lg shadow-[0_2px_5px_rgba(0,150,80,0.3)] border border-[#008844] hover:brightness-110 active:translate-y-[1px] transition-all">
+                        <i data-lucide="save" class="w-4 h-4"></i> 保存更改
                     </button>
-                    <button onclick="exportDataJS()" class="flex items-center gap-1.5 px-3 py-1.5 bg-white text-[#005588] text-xs font-bold rounded shadow-sm border border-[#aaddff] hover:bg-[#f0f9ff]">
-                        <i data-lucide="download" class="w-3.5 h-3.5"></i> 导出 data.js
+                    <button onclick="exportDataJS()" class="flex items-center gap-1.5 px-4 py-2 bg-white text-[#005588] text-xs font-bold rounded-lg shadow-sm border border-[#aaddff] hover:bg-[#f0f9ff] hover:shadow transition-all">
+                        <i data-lucide="download" class="w-4 h-4 text-[#0088cc]"></i> 导出 data.js
                     </button>
-                    <a href="index.html" target="_blank" class="flex items-center gap-1.5 px-3 py-1.5 bg-white text-[#557799] text-xs font-bold rounded shadow-sm border border-[#e0e0e0] hover:bg-gray-50">
-                        <i data-lucide="external-link" class="w-3.5 h-3.5"></i> 预览网站
+                    <div class="w-[1px] h-6 bg-[#cceeff] mx-1"></div>
+                    <a href="index.html" target="_blank" class="flex items-center gap-1.5 px-4 py-2 bg-white text-[#557799] text-xs font-bold rounded-lg shadow-sm border border-[#e0e0e0] hover:bg-gray-50 hover:text-[#334455] transition-all">
+                        <i data-lucide="external-link" class="w-4 h-4"></i> 预览网站
                     </a>
                 </div>
             </header>
 
-            <!-- Content Area -->
-            <div class="flex-1 overflow-y-auto p-6" id="admin-content">
-                <!-- Dynamic Content -->
-            </div>
-
+            <div class="flex-1 overflow-y-auto p-8" id="admin-content">
+                </div>
         </main>
 
     </div>
 
-    <!-- Toast Notification -->
-    <div id="toast" class="fixed bottom-6 right-6 translate-y-20 opacity-0 transition-all duration-300 bg-[#333] text-white px-4 py-3 rounded-lg shadow-xl flex items-center gap-3 z-[10000]">
-        <i data-lucide="check-circle" class="w-5 h-5 text-green-400"></i>
-        <span id="toast-msg" class="text-sm font-bold">Operation Successful</span>
+    <div id="toast" class="fixed bottom-8 right-8 translate-y-20 opacity-0 transition-all duration-300 bg-white/90 backdrop-blur-md border border-[#aaddff] text-[#004477] px-5 py-3.5 rounded-xl shadow-[0_10px_25px_rgba(0,50,100,0.15)] flex items-center gap-3 z-[10000]">
+        <i data-lucide="check-circle" class="w-5 h-5 text-[#00cc66]"></i>
+        <span id="toast-msg" class="text-sm font-black">Operation Successful</span>
     </div>
 
     <script src="js/data.js"></script>

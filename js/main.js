@@ -107,7 +107,7 @@ window.openArtistModal = (id) => {
         </div>
         <div class="space-y-3">
             <h3 class="font-bold text-[#003355] text-sm border-b border-[#dceeff] pb-1 flex items-center gap-2">
-                <img src="https://raw.githubusercontent.com/Visnalize/resources/main/icons/win7/Windows%20Live%20Photo%20Gallery/WLXPhotoLibraryResources_238.ico" class="w-4 h-4"> 典型视觉印象
+                <img src="img/imageres_113.ico" class="w-4 h-4"> 典型视觉印象
             </h3>
             <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
                 ${[artist.coverImage, ...artist.gallery].map(img => `

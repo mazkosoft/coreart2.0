@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>核类艺术协会™ | 音乐</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -13,100 +13,174 @@
     <script src="https://unpkg.com/webamp@1.5.0/built/webamp.bundle.min.js"></script>
 
     <style>
-        /* 核心布局修复：强制锁定 Webamp 窗口 */
+        /* 布局基础：彻底解决溢出和移动端不对称白边 */
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f9ff;
+        }
+
+        /* 统一面板样式：完全遵循核类艺术 Aero 设计语言 */
+        .glass-panel-unified {
+            background: rgba(240, 248, 255, 0.85);
+            backdrop-filter: blur(20px);
+            border: 1.5px solid rgba(255, 255, 255, 0.7);
+            box-shadow: 0 8px 25px rgba(0, 40, 80, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.9);
+            border-radius: 0.6rem;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .panel-header-gradient {
+            background: linear-gradient(to bottom, #009dff, #0077ff, #00ccff);
+            border-bottom: 1.5px solid #0055cc;
+            height: 36px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            padding: 0 1rem;
+            flex-shrink: 0;
+        }
+
+        .header-shine {
+            position: absolute;
+            top: 2px;
+            left: 3px;
+            right: 3px;
+            height: 48%;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.7), rgba(255,255,255,0.1));
+            pointer-events: none;
+            z-index: 10;
+            border-radius: 0.4rem;
+        }
+
+        .header-text {
+            position: relative;
+            z-index: 20;
+            color: white;
+            font-weight: 900;
+            font-size: 13px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        /* Webamp 锚定逻辑：死死锁在面板内部 */
         #webamp-container {
             position: relative;
-            width: 275px; /* Winamp 标准宽度 */
+            width: 275px; 
             height: 350px;
             margin: 0 auto;
         }
         
-        /* 强制让 Webamp 渲染出来的 DOM 节点锚定在父容器 */
         #webamp {
             position: absolute !important;
             top: 0 !important;
             left: 0 !important;
             z-index: 50 !important;
         }
-
-        /* 紧凑型玻璃面板 */
-        .compact-glass {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-        }
-
-        /* 侧边栏呼吸灯效果 */
-        .sidebar-active-glow {
-            box-shadow: 0 0 20px rgba(0, 150, 255, 0.1);
-        }
+        
+        /* 自定义滚动条 */
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(0, 119, 255, 0.2); border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(0, 119, 255, 0.4); }
     </style>
 </head>
-<body class="bg-[#f8fbff]">
+<body>
 
-    <div class="flex flex-col min-h-screen relative">
+    <div class="flex flex-col min-h-screen relative w-full">
         <div id="header-container"></div>
         <div id="nav-container"></div>
 
-        <main class="flex-1 w-full max-w-[980px] mx-auto px-4 pb-12 mt-8">
+        <main class="flex-1 w-full max-w-[1040px] mx-auto px-4 pb-12 mt-8 box-border">
             
-            <div class="flex flex-col lg:flex-row gap-6">
+            <div class="flex flex-col lg:flex-row gap-6 items-start w-full">
                 
-                <div class="w-full lg:w-[300px] shrink-0">
-                    <div class="compact-glass rounded-2xl p-4 sidebar-active-glow flex flex-col items-center border-t-white border-l-white">
-                        <div class="w-full border-b border-blue-100 pb-2 mb-6 flex items-center justify-between px-1">
-                            <span class="text-[9px] font-black text-blue-500/60 tracking-widest uppercase">Audio Terminal v1.0</span>
-                            <div class="flex gap-1">
-                                <div class="w-1.5 h-1.5 rounded-full bg-blue-400"></div>
-                                <div class="w-1.5 h-1.5 rounded-full bg-blue-200"></div>
+                <div class="w-full lg:w-[310px] shrink-0 flex flex-col gap-6">
+                    
+                    <section class="glass-panel-unified">
+                        <div class="panel-header-gradient">
+                            <div class="header-shine"></div>
+                            <div class="header-text">
+                                <i data-lucide="music" class="w-4 h-4"></i>
+                                <span>音频终端 (Audio Terminal)</span>
                             </div>
                         </div>
+                        <div class="p-4 bg-gradient-to-b from-blue-50/50 to-transparent flex flex-col items-center">
+                            <div id="webamp-container">
+                                <div id="loading-hint" class="absolute inset-0 flex items-center justify-center text-blue-400 text-[10px] animate-pulse font-bold tracking-widest">
+                                    BOOTING SYSTEM...
+                                </div>
+                            </div>
+                        </div>
+                    </section>
 
-                        <div id="webamp-container">
-                            <div id="loading-hint" class="absolute inset-0 flex flex-col items-center justify-center text-blue-400/50 text-[10px] font-bold italic">
-                                INITIALIZING...
+                    <section class="glass-panel-unified">
+                        <div class="panel-header-gradient">
+                            <div class="header-shine"></div>
+                            <div class="header-text">
+                                <i data-lucide="info" class="w-4 h-4"></i>
+                                <span>音轨档案 (Track Details)</span>
                             </div>
                         </div>
+                        <div class="p-5 flex flex-col">
+                            <div class="flex items-start gap-4 mb-4">
+                                <div class="w-16 h-16 rounded-lg bg-gradient-to-br from-blue-400 to-blue-600 shadow-md shrink-0 flex items-center justify-center text-white border-2 border-white/50">
+                                    <i data-lucide="disc-3" class="w-8 h-8 opacity-90"></i>
+                                </div>
+                                <div class="flex flex-col justify-center overflow-hidden pt-1">
+                                    <h3 class="text-[13px] font-black text-blue-900 truncate tracking-tight">Thunder Disc</h3>
+                                    <p class="text-[11px] font-bold text-slate-500 truncate mt-0.5">Eli's Ladder</p>
+                                    <div class="mt-2 flex gap-1.5">
+                                        <span class="px-1.5 py-0.5 rounded bg-blue-100 text-blue-600 text-[8px] font-black uppercase tracking-wider border border-blue-200">MP3</span>
+                                        <span class="px-1.5 py-0.5 rounded bg-blue-100 text-blue-600 text-[8px] font-black uppercase tracking-wider border border-blue-200">Local</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="text-[11px] text-slate-600 leading-relaxed font-medium mb-5 bg-white/60 p-3 rounded-lg border border-white shadow-sm">
+                                此音轨为核类艺术协会收录的本地精选源文件。采用经典合成器音色重构，带有强烈的复古电子与合成器波（Synthwave）风格，支持高保真本地回放与离线下载。
+                            </div>
 
-                        <div class="mt-8 w-full bg-blue-50/50 rounded-lg p-3 border border-blue-100/50">
-                            <div class="flex items-center gap-2 mb-1">
-                                <i data-lucide="activity" class="w-3 h-3 text-blue-500"></i>
-                                <span class="text-[10px] font-black text-blue-800 uppercase">Device Status</span>
-                            </div>
-                            <div class="text-[9px] text-blue-600/70 font-bold leading-relaxed">
-                                Mode: High-Fidelity Output<br>
-                                Buffer: Synchronized
-                            </div>
+                            <a href="music/elis_ladder-thunder_disc.mp3" download="Thunder Disc - Eli's Ladder.mp3" 
+                               class="w-full py-2.5 rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 active:scale-[0.98] text-white text-[11px] font-black tracking-[0.15em] flex items-center justify-center gap-2 transition-all shadow-md shadow-blue-500/30 cursor-pointer">
+                                <i data-lucide="download-cloud" class="w-4 h-4"></i>
+                                下载源文件 (DOWNLOAD)
+                            </a>
                         </div>
-                    </div>
+                    </section>
                 </div>
 
-                <div class="flex-1 flex flex-col gap-5 min-w-0">
+                <div class="flex-1 flex flex-col gap-6 w-full min-w-0">
                     
-                    <section class="compact-glass rounded-xl overflow-hidden flex flex-col">
-                        <div class="bg-gradient-to-r from-[#0088ff] to-[#00ccff] h-[32px] px-4 flex items-center justify-between border-b border-blue-600/20">
-                            <div class="flex items-center gap-2 text-white text-[11px] font-black drop-shadow-sm">
-                                <i data-lucide="layout" class="w-3.5 h-3.5"></i>
-                                <span class="tracking-widest uppercase">皮肤档案库 (Skin Library)</span>
+                    <section class="glass-panel-unified">
+                        <div class="panel-header-gradient">
+                            <div class="header-shine"></div>
+                            <div class="header-text">
+                                <i data-lucide="palette" class="w-4 h-4"></i>
+                                <span>皮肤终端 (Skin Terminal)</span>
                             </div>
-                            <div id="active-skin-name" class="text-[9px] text-white/80 font-bold bg-white/10 px-2 py-0.5 rounded italic">Default</div>
                         </div>
-                        
-                        <div class="p-4">
-                            <div id="skin-grid" class="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-2">
+                        <div class="p-6">
+                            <div id="skin-grid" class="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-3">
                                 </div>
                         </div>
                     </section>
 
-                    <section class="compact-glass rounded-xl overflow-hidden flex flex-col">
-                        <div class="bg-gradient-to-r from-[#0088ff] to-[#00ccff] h-[32px] px-4 flex items-center justify-between border-b border-blue-600/20">
-                            <div class="flex items-center gap-2 text-white text-[11px] font-black drop-shadow-sm">
-                                <i data-lucide="database" class="w-3.5 h-3.5"></i>
-                                <span class="tracking-widest uppercase">系统音轨集 (Audio Database)</span>
+                    <section class="glass-panel-unified flex flex-col">
+                        <div class="panel-header-gradient">
+                            <div class="header-shine"></div>
+                            <div class="header-text">
+                                <img src="img/Folder203.ico" class="w-[25px] h-[25px] object-contain" onerror="this.style.display='none'">
+                                <span>音轨数据库 (Track Database)</span>
                             </div>
                         </div>
-                        <div id="music-playlist-container" class="p-2">
+                        <div id="music-playlist-container" class="p-4 custom-scrollbar">
                             </div>
                     </section>
 
@@ -125,6 +199,7 @@
     <script>
         let webampInstance = null;
 
+        // 包含你所有皮肤的完整名单
         const SKINS = [
             { id: 'aqua', name: 'Aqua X', file: 'Aqua_X.wsz' },
             { id: 'argentum', name: 'Argentum Blue', file: 'Argentum_Blue.wsz' },
@@ -135,7 +210,7 @@
             { id: 'yuna', name: 'Yunaofffx', file: 'Yunaofffx.wsz' }
         ];
 
-        let currentSkinId = SKINS[0].id;
+        let currentSkinId = SKINS[3].id; // 默认选中 Glass Amp 4
 
         window.addEventListener('DOMContentLoaded', () => {
             renderSkinGrid();
@@ -159,9 +234,8 @@
                     url: musicUrl
                 }],
                 initialSkin: {
-                    url: new URL(`skin/${SKINS[0].file}`, window.location.href).href
+                    url: new URL(`skin/Glass Amp 4.wsz`, window.location.href).href
                 },
-                // 窗口布局垂直堆叠，保证在 275px 宽度内显示完整
                 __initialWindowLayout: {
                     main: { position: { x: 0, y: 0 } },
                     equalizer: { position: { x: 0, y: 116 } },
@@ -170,38 +244,35 @@
             });
 
             webampInstance.renderWhenReady(container).then(() => {
-                const hint = document.getElementById('loading-hint');
-                if(hint) hint.style.display = 'none';
-                document.getElementById('active-skin-name').innerText = SKINS[0].name;
+                document.getElementById('loading-hint').style.display = 'none';
             });
         }
 
+        // 渲染精致的皮肤磁贴
         function renderSkinGrid() {
             const grid = document.getElementById('skin-grid');
             grid.innerHTML = SKINS.map(skin => {
                 const active = skin.id === currentSkinId;
                 return `
-                    <button onclick="changeSkin('${skin.id}', '${skin.file}', '${skin.name}')" 
-                        class="flex items-center gap-2 px-3 py-2 rounded-md border text-left transition-all duration-200 group
-                        ${active ? 'bg-blue-50 border-blue-400 shadow-inner' : 'bg-white/50 border-gray-100 hover:border-blue-300 hover:bg-white'}">
-                        <div class="w-5 h-5 rounded flex items-center justify-center shrink-0 ${active ? 'bg-blue-500 text-white' : 'bg-gray-100 text-gray-400 group-hover:text-blue-400'}">
-                            <i data-lucide="box" class="w-3 h-3"></i>
+                    <button onclick="handleSkinSwitch('${skin.id}', '${skin.file}')" 
+                        class="flex items-center gap-3 p-3 rounded-lg border transition-all duration-300 group
+                        ${active ? 'bg-[#e6f4ff] border-[#3a8ef5] shadow-inner' : 'bg-white/50 border-[#d0e0f0] hover:bg-white hover:border-[#88ccff]'}">
+                        <div class="w-8 h-8 rounded bg-gradient-to-br from-[#00ccff] to-[#0077ff] flex items-center justify-center text-white shrink-0 shadow-sm transition-transform group-hover:scale-110">
+                            <i data-lucide="layers" class="w-4 h-4"></i>
                         </div>
-                        <span class="text-[10px] font-black tracking-tight truncate ${active ? 'text-blue-800' : 'text-gray-500'}">${skin.name}</span>
+                        <span class="text-[10px] font-black truncate w-full text-left ${active ? 'text-blue-800' : 'text-slate-600'}">${skin.name}</span>
                     </button>
                 `;
             }).join('');
             if(window.lucide) lucide.createIcons();
         }
 
-        function changeSkin(id, file, name) {
+        function handleSkinSwitch(id, file) {
             if (!webampInstance || id === currentSkinId) return;
             currentSkinId = id;
             renderSkinGrid();
-            
             const skinUrl = new URL(`skin/${file}`, window.location.href).href;
             webampInstance.setSkinFromUrl(skinUrl);
-            document.getElementById('active-skin-name').innerText = name;
         }
     </script>
 </body>
